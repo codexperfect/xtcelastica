@@ -1,0 +1,10 @@
+wscontent:
+  serve_request:
+    allowed_ws:
+      es:
+        article:
+          full: 'titi'
+          teaser: 'titi'
+        page:
+          full: 'titi'
+          short: 'titi'

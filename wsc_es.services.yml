@@ -1,0 +1,4 @@
+services:
+  wsc_es.es_test:
+    class: Drupal\wscontent\WSContent\Serve\WSRequest\ESRequest
+    arguments: ['es_test']
