@@ -1,16 +1,19 @@
 {
-    "name": "drupal/wsc_es",
+    "name": "drupal/xtcelastica",
     "type": "drupal-module",
-    "description": "Manage contents from ElasticSearch.",
-    "keywords": ["Drupal"],
+    "description": "Extended Content provides access to external elasticsearch content from Drupal.",
     "license": "GPL-2.0+",
-    "homepage": "https://www.drupal.org/project/wsc_es",
-    "minimum-stability": "dev",
+    "homepage": "https://www.drupal.org/project/xtcelastica",
+    "authors": [
+        {
+            "name": "Alexandre Israël",
+            "homepage": "https://www.drupal.org/u/w3wfr"
+        }
+    ],
     "support": {
-        "issues": "https://www.drupal.org/project/issues/wsc_es",
-        "source": "http://cgit.drupalcode.org/wsc_es"
+        "issues": "https://www.drupal.org/project/issues/xtcelastica",
+        "source": "http://cgit.drupalcode.org/xtcelastica"
     },
     "require": {
-        "friendsofsymfony/elastica-bundle": "5.*"
     }
 }
