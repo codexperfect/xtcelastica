@@ -1,4 +1,4 @@
 services:
   wsc_es.es_test:
-    class: Drupal\wscontent\WSContent\Serve\WSRequest\ESRequest
+    class: Drupal\xtc\XtendedContent\Serve\XtcRequest\GuzzleXtcRequest
     arguments: ['es_test']
