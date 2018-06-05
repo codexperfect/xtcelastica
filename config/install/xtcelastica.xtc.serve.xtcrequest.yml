@@ -1,4 +1,4 @@
 xtcontent:
-  serve_wsrequest:
+  serve_xtcrequest:
     es:
       service: 'wsc_es.es_test'
