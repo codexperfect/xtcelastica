@@ -2,5 +2,5 @@ name: "Xtended content for ElasticSearch"
 type: module
 description: "Xtended content from ElasticSearch sources."
 core: '8.x'
-package: "WebService Content"
+package: "Xtended Content"
 dependencies: []
