@@ -1,6 +1,6 @@
-name: "Xtended content for ElasticSearch"
+name: "Xtended Content for ElasticSearch"
 type: module
-description: "Xtended content from ElasticSearch sources."
+description: "Xtended Content from ElasticSearch sources."
 core: '8.x'
 package: "Xtended Content"
 dependencies: []
