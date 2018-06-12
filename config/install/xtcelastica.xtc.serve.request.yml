@@ -1,4 +1,4 @@
-wscontent:
+xtcontent:
   serve_request:
     allowed_ws:
       es:

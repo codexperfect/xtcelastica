@@ -1,6 +1,0 @@
-name: "WebService Content for ElasticSearch"
-type: module
-description: "Manage access to Webservice content from ElasticSearch."
-core: '8.x'
-package: "WebService Content"
-dependencies: []
