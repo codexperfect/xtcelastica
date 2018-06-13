@@ -1,4 +1,5 @@
 xtcontent:
   serve_xtcrequest:
-    es:
-      service: 'wsc_es.es_test'
+    test_elastica:
+      allowed:
+        - getElasticaData
