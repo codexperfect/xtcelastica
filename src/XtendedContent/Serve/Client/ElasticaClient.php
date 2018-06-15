@@ -9,6 +9,8 @@
 namespace Drupal\xtcelastica\XtendedContent\Serve\Client;
 
 
+use Drupal\xtc\XtendedContent\Serve\Client\AbstractClient;
+
 class ElasticaClient extends AbstractClient
 {
 
