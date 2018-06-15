@@ -1,0 +1,19 @@
+xtcontent:
+  serve_client:
+    test_elastica:
+      host: ''
+      port: ''
+      path: ''
+      url: ''
+      proxy: ''
+      transport: ''
+      persistent: true
+      timeout: ''
+#      host, port, path, timeout, transport, compression, persistent, timeout, username, password, config -> (curl, headers, url)"
+      connections: '[]',
+      roundRobin: false
+      log: false
+      retryOnConflict: 0
+      bigintConversion: false
+      username: ''
+      password: ''
