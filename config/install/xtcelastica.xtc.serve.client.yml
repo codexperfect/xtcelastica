@@ -10,7 +10,7 @@ xtcontent:
       persistent: true
       timeout: ''
 #      host, port, path, timeout, transport, compression, persistent, timeout, username, password, config -> (curl, headers, url)"
-      connections: '[]',
+      connections: '[]'
       roundRobin: false
       log: false
       retryOnConflict: 0
