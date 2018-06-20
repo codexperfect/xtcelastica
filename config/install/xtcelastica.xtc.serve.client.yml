@@ -1,19 +1,34 @@
 xtcontent:
   serve_client:
-    test_elastica:
-      host: ''
-      port: ''
-      path: ''
-      url: ''
-      proxy: ''
-      transport: ''
-      persistent: true
-      timeout: ''
-#      host, port, path, timeout, transport, compression, persistent, timeout, username, password, config -> (curl, headers, url)"
-      connections: '[]'
-      roundRobin: false
-      log: false
-      retryOnConflict: 0
-      bigintConversion: false
-      username: ''
-      password: ''
+    server:
+      test_local:
+        type: 'elastica'
+        env: 'local-dev'
+        connection:
+          local-dev:
+            host: 'localhost'
+            port: 9200
+    request:
+      account-by-id:
+        method: 'getElasticaDataByID'
+        params:
+          index: 'bank'
+          type: 'account'
+      account-693:
+        method: 'getElasticaData'
+        params:
+          index: 'bank'
+          type: 'account'
+          id:  693
+      account-18:
+        method: 'getElasticaData'
+        params:
+          index: 'bank'
+          type: 'account'
+          id: 18
+      account-247:
+        method: 'getElasticaData'
+        params:
+          index: 'bank'
+          type: 'account'
+          id: 247

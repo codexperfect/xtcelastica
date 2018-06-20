@@ -1,5 +1,7 @@
 xtcontent:
   serve_xtcrequest:
-    test_elastica:
+    test_local:
       allowed:
         - getElasticaData
+        - getElasticaDataByID
+        - putElasticaData

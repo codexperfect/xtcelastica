@@ -1,0 +1,13 @@
+# Example: api/ldap/user/session
+xtcelastica.doc:
+  path: 'doc/{query}'
+  defaults:
+    _controller: 'Drupal\xtc\Controller\XtcController::content'
+    _title: 'Formatted Content'
+    source: 'get'
+    type: 'known'
+    format: 'doc'
+    query: ''
+    json: true
+  requirements:
+    _permission: 'access webservice content'

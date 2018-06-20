@@ -1,6 +1,6 @@
 services:
   xtc.elastica:
     class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest
-  xtcelastica.elastica_test:
+  xtcelastica.local_test:
     class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest
-    arguments: ['test_elastica']
+    arguments: ['test_local']

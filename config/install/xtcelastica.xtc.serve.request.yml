@@ -1,10 +1,11 @@
 xtcontent:
   serve_request:
     allowed_ws:
-      es:
-        article:
-          full: 'titi'
-          teaser: 'titi'
-        page:
-          full: 'titi'
-          short: 'titi'
+      search:
+        account:
+          id:
+            profile: 'account-by-id'
+      get:
+        known:
+          doc:
+            profile: 'known-doc'

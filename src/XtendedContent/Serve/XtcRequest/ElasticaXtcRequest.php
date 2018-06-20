@@ -22,7 +22,7 @@ class ElasticaXtcRequest extends AbstractXtcRequest
       $this->client = new ElasticaClient($this->profile);
     }
     $this->client->setXtcConfigFromYaml();
-    $this->client->setClientRequest($this->request);
+    $this->client->setRequest($this->request);
     return $this;
   }
 

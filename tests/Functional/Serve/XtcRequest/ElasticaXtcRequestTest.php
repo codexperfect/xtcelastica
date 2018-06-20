@@ -27,11 +27,12 @@ class ElasticaXtcRequestTest extends UnitTestCase
 
   public function testPerformAllRequest(){
     foreach ($this->accounts() as $account){
-      $this->performRequest('test_local', 'account-'.$account);
+//      $this->performRequest('test_local', 'account-by-id', $account);
+      $this->performRequest('test_local', 'known-doc', 'bank/account/'.$account);
     }
   }
 
-  private function performRequest($profile, $request){
+  private function performRequest($profile, $request, $id){
     $xtcRequest = New ElasticaXtcRequest($profile);
     $xtcRequest->setRequest($request);
     $fullconfig = array_merge_recursive($this->setXtcConfig(),$this->setClientConfig());
@@ -40,9 +41,9 @@ class ElasticaXtcRequestTest extends UnitTestCase
     $this->xtcRequest = $xtcRequest;
 
     $method = $this->setClientConfig()['xtc']['serve_client']['request'][$request]['method'];
-    $this->xtcRequest->get($method);
+    $this->xtcRequest->get($method, $id);
     $response = $this->xtcRequest->getData();
-    $expected = $this->expected($request);
+    $expected = $this->expected('account-'.$id);
     $this->assertSame($expected, $response);
   }
 
@@ -53,7 +54,9 @@ class ElasticaXtcRequestTest extends UnitTestCase
           "test_local" => [
             "allowed" => [
               0 => 'getElasticaData',
-              1 => 'getElasticaVersion',
+              1 => 'getElasticaDataByID',
+              1 => 'getKnownDoc',
+              2 => 'putElasticaData',
             ],
           ],
         ],
@@ -78,35 +81,17 @@ class ElasticaXtcRequestTest extends UnitTestCase
             ],
           ],
           "request" => [
-            "test_version" => [
-              "method" => 'getElasticaVersion',
-              "verb" => 'GET',
-            ],
-            "account-693" => [
-              "method" => 'getElasticaData',
+            "account-by-id" => [
+              "method" => 'getElasticaDataByID',
               "params" => [
                 'index' => 'bank',
                 'type' => 'account',
-                'id' => 693,
               ],
             ],
-            "account-18" => [
-              "method" => 'getElasticaData',
-              "params" => [
-                'index' => 'bank',
-                'type' => 'account',
-                'id' => 18,
-              ],
+            "known-doc" => [
+              "method" => 'getKnownDoc',
+              "params" => [],
             ],
-            "account-247" => [
-              "method" => 'getElasticaData',
-              "params" => [
-                'index' => 'bank',
-                'type' => 'account',
-                'id' => 247,
-              ],
-            ],
-
           ],
         ],
       ],
@@ -115,12 +100,15 @@ class ElasticaXtcRequestTest extends UnitTestCase
 
   private function expected($name) {
     switch ($name) {
+      case 'account-bank/account/693':
       case 'account-693':
         return '{"_index":"bank","_type":"account","_id":"693","_version":1,"found":true,"_source":{"account_number":693,"balance":31233,"firstname":"Tabatha","lastname":"Zimmerman","age":30,"gender":"F","address":"284 Emmons Avenue","employer":"Pushcart","email":"tabathazimmerman@pushcart.com","city":"Esmont","state":"NC"}}';
         break;
+      case 'account-bank/account/18':
       case 'account-18':
         return '{"_index":"bank","_type":"account","_id":"18","_version":1,"found":true,"_source":{"account_number":18,"balance":4180,"firstname":"Dale","lastname":"Adams","age":33,"gender":"M","address":"467 Hutchinson Court","employer":"Boink","email":"daleadams@boink.com","city":"Orick","state":"MD"}}';
         break;
+      case 'account-bank/account/247':
       case 'account-247':
         return '{"_index":"bank","_type":"account","_id":"247","_version":1,"found":true,"_source":{"account_number":247,"balance":45123,"firstname":"Mccormick","lastname":"Moon","age":37,"gender":"M","address":"582 Brighton Avenue","employer":"Norsup","email":"mccormickmoon@norsup.com","city":"Forestburg","state":"DE"}}';
         break;

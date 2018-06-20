@@ -109,6 +109,23 @@ class ElasticaClient extends AbstractClient
     return $this;
   }
 
+  public function getElasticaDataByID(){
+    $clientParams = $this->getParams();
+    $clientParams['id'] = $this->param;
+    $this->content = $this->client->get($clientParams);
+    return $this;
+  }
+
+  public function getKnownDoc(){
+    $clientParams = $this->getParams();
+    $queryParams = explode('/', $this->param);
+    $clientParams['index'] = $queryParams[0];
+    $clientParams['type'] = $queryParams[1];
+    $clientParams['id'] = $queryParams[2];
+    $this->content = $this->client->get($clientParams);
+    return $this;
+  }
+
   public function getElasticaVersion(){
     $this->content = $this->client->get('version');
     return $this;
