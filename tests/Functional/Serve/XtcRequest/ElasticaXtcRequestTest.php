@@ -12,7 +12,6 @@ namespace Drupal\Tests\csoec_user\Functional\Serve\XtcRequest;
 use Drupal\Tests\UnitTestCase;
 use Drupal\xtc\XtendedContent\Serve\XtcRequest\XtcRequestInterface;
 use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest;
-use Elastica\Request;
 
 class ElasticaXtcRequestTest extends UnitTestCase
 {

@@ -21,16 +21,7 @@ class ElasticaXtcRequest extends AbstractXtcRequest
     if(isset($this->profile)){
       $this->client = new ElasticaClient($this->profile);
     }
-    $this->client->setXtcConfigFromYaml();
-    $this->client->setRequest($this->request);
-    return $this;
-  }
-
-  protected function buildClientFromConfig($config){
-    if(isset($this->profile)){
-      $this->client = new ElasticaClient($this->profile);
-    }
-    $this->client->setXtcConfig($config);
+    $this->client->setXtcConfig($this->config);
     $this->client->setRequest($this->request);
     return $this;
   }

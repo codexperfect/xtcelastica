@@ -88,22 +88,6 @@ class ElasticaClient extends AbstractClient
     return $this;
   }
 
-  /**
-   * @return ClientInterface
-   */
-  protected function buildClientFromConfig($config) : ClientInterface {
-    $this->setOptionsFromConfig($config);
-    $hosts = [
-      'host' => $this->getConnectionInfo('host'),
-      'port'=> $this->getConnectionInfo('port'),
-    ];
-    $this->client = ClientBuilder::create()
-      ->setHosts($hosts)
-      ->setRetries($this->getConnectionInfo('retryOnConflict'))
-      ->build();
-    return $this;
-  }
-
   public function getElasticaData(){
     $this->content = $this->client->get($this->getParams());
     return $this;
@@ -137,39 +121,7 @@ class ElasticaClient extends AbstractClient
   public function setOptions()  : ClientInterface {
     $this->setClientProfile();
     $this->setConnection();
-    $options = [
-      'host' => $this->getConnectionInfo('host'),
-      'port' => $this->getConnectionInfo('port'),
-      'path' => $this->getConnectionInfo('path'),
-      'url' => $this->getConnectionInfo('url'),
-      'proxy' => $this->getConnectionInfo('proxy'),
-      'transport' => $this->getConnectionInfo('transport'),
-      'persistent' => $this->getConnectionInfo('persistent'),
-      'timeout' => $this->getConnectionInfo('timeout'),
-      'connections' => $this->getConnectionInfo('connections'),
-      'roundRobin' => $this->getConnectionInfo('roundRobin'),
-      'log' => $this->getConnectionInfo('log'),
-      'retryOnConflict' => $this->getConnectionInfo('retryOnConflict'),
-      'bigintConversion' => $this->getConnectionInfo('bigintConversion'),
-      'username' => $this->getConnectionInfo('username'),
-      'password' => $this->getConnectionInfo('password'),
-    ];
-    $this->options = $options;
-    return $this;
-  }
-
-  /**
-   * @return ClientInterface
-   */
-  public function setOptionsFromConfig($config)  : ClientInterface {
-    $this->setClientProfile();
-    $this->setConnection();
-    $options = [
-      'host' => $this->getConnectionInfo('host'),
-      'port' => $this->getConnectionInfo('port'),
-    ];
-    $this->options = $options;
-
+    $this->options = $this->getConnection();
     return $this;
   }
 
