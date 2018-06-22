@@ -68,6 +68,7 @@ class AbstractElasticaClient extends AbstractClient
   public function get() : string {
     if(method_exists($this, $this->method)){
       $getMethod = $this->method;
+      dump("METHOD");
       $this->${"getMethod"}();
     }
     return Json::encode($this->content);

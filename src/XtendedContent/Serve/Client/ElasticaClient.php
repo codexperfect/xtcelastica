@@ -12,6 +12,7 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\Client;
 class ElasticaClient extends AbstractElasticaClient
 {
   public function getElasticaDataByID(){
+    dump("BOF");
     $clientParams = $this->getParams();
     $clientParams['id'] = $this->param;
     $this->content = $this->client->get($clientParams);
@@ -19,6 +20,7 @@ class ElasticaClient extends AbstractElasticaClient
   }
 
   public function getKnownDoc(){
+    dump("NON");
     $clientParams = $this->getParams();
     $queryParams = explode('/', $this->param);
     $clientParams['index'] = $queryParams[0];
@@ -28,4 +30,12 @@ class ElasticaClient extends AbstractElasticaClient
     return $this;
   }
 
+  public function searchElasticaDocByQuery(){
+    dump("ICI");
+    $clientParams = $this->getParams();
+    dump($clientParams);
+    $clientParams['id'] = $this->param;
+    $this->content = $this->client->search($clientParams);
+    return $this;
+  }
 }

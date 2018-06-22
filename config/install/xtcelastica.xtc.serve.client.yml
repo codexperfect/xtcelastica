@@ -14,21 +14,6 @@ xtcontent:
         params:
           index: 'bank'
           type: 'account'
-      account-693:
-        method: 'getElasticaData'
-        params:
-          index: 'bank'
-          type: 'account'
-          id:  693
-      account-18:
-        method: 'getElasticaData'
-        params:
-          index: 'bank'
-          type: 'account'
-          id: 18
-      account-247:
-        method: 'getElasticaData'
-        params:
-          index: 'bank'
-          type: 'account'
-          id: 247
+      known-doc:
+        method: 'getKnownDoc'
+        params: []

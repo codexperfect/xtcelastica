@@ -18,6 +18,7 @@ class AbstractElasticaXtcRequest extends AbstractXtcRequest
   private $request;
 
   protected function buildClient(){
+    dump("BUILD");
     $this->client = $this->getElasticaClient();
     $this->client->setXtcConfig($this->config);
     $this->client->setRequest($this->request);
