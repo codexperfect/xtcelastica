@@ -99,8 +99,10 @@ class ElasticaXtcRequestTest extends UnitTestCase
             "account-by-query" => [
               "method" => "searchElasticaDocByQuery",
               "params" => [
-                "index" => "account",
-                "q" => "Tammy",
+                "index" => "bank",
+                "q" => "age:[35 TO *]",
+                "size" => 3,
+                "from" => 152,
               ],
             ],
           ],
