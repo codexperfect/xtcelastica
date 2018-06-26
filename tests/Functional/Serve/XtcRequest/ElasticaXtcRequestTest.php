@@ -7,14 +7,19 @@
  */
 
 
-namespace Drupal\Tests\csoec_user\Functional\Serve\XtcRequest;
+namespace Drupal\Tests\xtcelastica\Functional\Serve\XtcRequest;
 
+use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Tests\UnitTestCase;
 use Drupal\xtc\XtendedContent\Serve\XtcRequest\XtcRequestInterface;
 use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest;
+use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\IndexElasticaXtcRequest;
 
 class ElasticaXtcRequestTest extends UnitTestCase
 {
+
+  private $container;
+
   /**
    * @var XtcRequestInterface
    */
@@ -22,6 +27,26 @@ class ElasticaXtcRequestTest extends UnitTestCase
 
   protected function setUp() {
     parent::setUp();
+
+
+    $methods = get_class_methods('Drupal\Core\Entity\Entity');
+
+    $entity = $this
+      ->getMockBuilder('Drupal\Core\Entity\Entity')
+      ->disableOriginalConstructor()
+      ->setMethods($methods)
+      ->getMock();
+
+    // Create a new container object.
+    $this->container = new ContainerBuilder();
+
+    // Add a service into it.
+    $this->container->set('page', $entity);
+
+    // Let Drupal use your mock container.
+    \Drupal::setContainer($this->container);
+//    dump($this->container);
+//    dump($entity);
   }
 
   public function testPerformAllRequest(){
@@ -30,6 +55,38 @@ class ElasticaXtcRequestTest extends UnitTestCase
 //      $this->performRequest('test_local', 'known-doc', 'bank/account/'.$account);
 //    }
     $this->performRequest('test_local', 'account-by-query');
+
+//    $entityname = 'page';
+//    $methods = get_class_methods('Drupal\Core\Entity\Entity');
+//    $entity = $this
+//      ->getMockBuilder('Drupal\Core\Entity\Entity')
+//      ->disableOriginalConstructor()
+//      ->setMethods($methods)
+//      ->getMock();
+//
+//    $page = $entity->method('load')
+//    dump($page);
+
+    $entity = $this->container->get('page');
+    dump($entity::load('article'));
+//    // Create a new container object.
+//    $container = new ContainerBuilder();
+//    $entity = $container->get('entity_type.bundle.info');
+//    //    // Let Drupal use your mock container.
+//    //
+//    \Drupal::setContainer($container);
+//
+//
+//    dump($entity);
+//    $container->set('my_entity', $this->entity);
+////    dump($container);
+
+  }
+
+  private function buildEntityIndex($entityname){
+    $container = \Drupal::setContainer();
+    $entity = \Drupal\Core\Entity\Entity::load($entityname);
+    dump($entity);
   }
 
   private function performRequest($profile, $request, $id = ''){
@@ -101,8 +158,7 @@ class ElasticaXtcRequestTest extends UnitTestCase
               "params" => [
                 "index" => "bank",
                 "q" => "age:[35 TO *]",
-                "size" => 3,
-                "from" => 152,
+                "size" => 500,
               ],
             ],
           ],

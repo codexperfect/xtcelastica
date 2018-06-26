@@ -2,28 +2,46 @@
 
 /**
  * @file
- * WebService Content module.
+ * Xtended Content Elastica module.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_help().
  */
-function wsc_es_help($route_name, RouteMatchInterface $route_match) {
+function xtcelastica_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    case 'help.page.wsc_es':
+    case 'help.page.xtcelastica':
       $variables = [
-        ':wsc_es' => Url::fromRoute('help.page', ['name' => 'wsc_es'])->toString(),
+        ':xtcelastica' => Url::fromRoute('help.page', ['name' => 'xtcelastica'])->toString(),
       ];
 
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('The <a href=":wsc_es">WebService Content for ElasticSearch</a> module provide features to pull and push indexes between Drupal instance and ElasticeSearch remote servers.', $variables) . '</p>';
+      $output .= '<p>' . t('The <a href=":xtcelastica">Xtended Content for ElasticSearch</a> module provide features to pull and push indexes between Drupal instance and ElasticeSearch remote servers.', $variables) . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
       $output .= '<p>' . t('[to be completed]') . '</p>';
 
       return $output;
   }
 }
+
+/**
+ * Implements hook_node_save().
+ */
+function xtcelastica_node_save(NodeInterface $node, array $values){
+
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function xtcelastica_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  dump($entity);
+}
+
