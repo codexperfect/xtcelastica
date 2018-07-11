@@ -30,7 +30,6 @@ class ElasticaClient extends AbstractElasticaClient
 
   public function searchElasticaDocByQuery(){
     $clientParams = $this->getParams();
-    dump($clientParams);
     $this->content = $this->client->search($clientParams);
     return $this;
   }

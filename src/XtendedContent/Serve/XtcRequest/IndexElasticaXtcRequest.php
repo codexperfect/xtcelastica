@@ -13,7 +13,7 @@ use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClient;
 
 class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
 {
-  protected function indexElasticaClient(){
+  protected function getElasticaClient(){
     return New IndexElasticaClient($this->profile);
   }
 

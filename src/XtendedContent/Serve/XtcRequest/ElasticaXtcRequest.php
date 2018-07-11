@@ -13,8 +13,5 @@ use Drupal\xtcelastica\XtendedContent\Serve\Client\ElasticaClient;
 
 class ElasticaXtcRequest extends AbstractElasticaXtcRequest
 {
-  protected function getElasticaClient(){
-    return New ElasticaClient($this->profile);
-  }
 
 }

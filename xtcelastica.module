@@ -42,6 +42,6 @@ function xtcelastica_node_save(NodeInterface $node, array $values){
  * Implements hook_node_view().
  */
 function xtcelastica_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
-  dump($entity);
+//  dump($entity);
 }
 
