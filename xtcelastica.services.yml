@@ -1,4 +1,6 @@
 services:
-  wsc_es.es_test:
-    class: Drupal\xtc\XtendedContent\Serve\XtcRequest\GuzzleXtcRequest
-    arguments: ['es_test']
+  xtc.elastica:
+    class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest
+  xtcelastica.local_test:
+    class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest
+    arguments: ['test_local']

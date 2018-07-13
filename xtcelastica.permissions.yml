@@ -1,0 +1,4 @@
+index content:
+  title: 'Index Content'
+  description: 'Allow to index contents.'
+  restrict access: true

@@ -1,0 +1,19 @@
+xtcontent:
+  serve_client:
+    server:
+      test_local:
+        type: 'elastica'
+        env: 'local-dev'
+        connection:
+          local-dev:
+            host: 'localhost'
+            port: 9200
+    request:
+      account-by-id:
+        method: 'getElasticaDataByID'
+        params:
+          index: 'bank'
+          type: 'account'
+      known-doc:
+        method: 'getKnownDoc'
+        params: []
