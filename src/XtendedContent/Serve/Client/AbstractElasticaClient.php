@@ -68,7 +68,6 @@ class AbstractElasticaClient extends AbstractClient
   public function get() : string {
     if(method_exists($this, $this->method)){
       $getMethod = $this->method;
-      dump("METHOD");
       $this->${"getMethod"}();
     }
     return Json::encode($this->content);
@@ -79,10 +78,7 @@ class AbstractElasticaClient extends AbstractClient
    */
   protected function buildClient() : ClientInterface {
     $this->setOptions();
-    $hosts = [
-      'host' => $this->getConnectionInfo('host'),
-      'port'=> $this->getConnectionInfo('port'),
-    ];
+    $hosts[0] = $this->getConnection();
     $this->client = ClientBuilder::create()
       ->setHosts($hosts)
       ->setRetries($this->getConnectionInfo('retryOnConflict'))

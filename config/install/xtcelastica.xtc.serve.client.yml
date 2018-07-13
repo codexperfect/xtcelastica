@@ -17,3 +17,7 @@ xtcontent:
       known-doc:
         method: 'getKnownDoc'
         params: []
+      index-doc:
+        method: 'indexElasticaDoc'
+        params:
+          index: 'contenu'

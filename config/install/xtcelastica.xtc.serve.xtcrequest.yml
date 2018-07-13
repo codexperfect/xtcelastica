@@ -5,3 +5,4 @@ xtcontent:
         - getElasticaData
         - getElasticaDataByID
         - putElasticaData
+        - indexElasticaDoc
