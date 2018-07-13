@@ -9,6 +9,7 @@
 namespace Drupal\xtcelastica\XtendedContent\Serve\Client;
 
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\Entity;
 use Drupal\xtc\XtendedContent\Serve\Client\ClientInterface;
 
