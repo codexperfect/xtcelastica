@@ -54,10 +54,8 @@ class ElasticaXtcRequestTest extends UnitTestCase
     $this->xtcRequest = $xtcRequest;
 
     $method = $this->setClientConfig()['xtc']['serve_client']['request'][$request]['method'];
-    dump($method);
     $this->xtcRequest->get($method, $id);
     $response = $this->xtcRequest->getData();
-    dump($response);
     return $response;
 
 

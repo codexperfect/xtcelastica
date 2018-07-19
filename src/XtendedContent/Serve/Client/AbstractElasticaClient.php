@@ -107,7 +107,8 @@ class AbstractElasticaClient extends AbstractClient
   }
 
   private function setConnection() : ClientInterface {
-    $this->connection = $this->clientProfile['connection'][$this->getinfo('env')];
+    $env = $this->getinfo('env');
+    $this->connection = $this->clientProfile['connection'][$env];
     return $this;
   }
 

@@ -1,0 +1,33 @@
+# Example xtc_elastica_mapping plugin definitions.
+# Plugin property $defaults are defined in XtcElasticaMappingManager.
+paragraph:
+  id: paragraphs
+  label: Paragraphs
+  types:
+    editeur_texte: EditeurTexte
+    image: Image
+    references: References
+    documents_connexes: Documents
+    lire: Lire
+    composant_ref_int_ext_sans_url: RefSansUrl
+    composant_reference_externe: RefExt
+    composant_reference_interne: RefInt
+    les_documents_connexes: DocConnexe
+    composant_url_connexe_interne: UrlInterne
+    url_connexe_externe: UrlExterne
+    composant_tag: Tag
+    composant_auteur: Auteur
+    composant_editeur: Editeur
+    composant_emetteur: Emetteur
+    composant_mots_cles: MotsCles
+    composant_profil_autorise: ProfilAutorise
+node:
+  id: node
+  label: Content
+  types:
+    dossiers_thematiques: NodeDossier
+term:
+  id: taxonomy_term
+  label: Term
+  types:
+    type_actualite: TypeActualite
