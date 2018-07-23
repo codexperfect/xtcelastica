@@ -1,8 +1,21 @@
 # Example xtc_elastica_mapping plugin definitions.
 # Plugin property $defaults are defined in XtcElasticaMappingManager.
+file:
+  id: file
+  label: File
+  module: xtcelastica
+  type_path: XtendedContent\Index\EntityField\ERType
+  field_path: XtendedContent\Index\EntityField\ERFile
+  class: File
+  types:
+    image: Image
 paragraph:
   id: paragraphs
   label: Paragraphs
+  module: xtcelastica
+  type_path: XtendedContent\Index\EntityField\ERType
+  field_path: XtendedContent\Index\EntityField\ERParagraph
+  class: Paragraph
   types:
     editeur_texte: EditeurTexte
     image: Image
@@ -24,10 +37,28 @@ paragraph:
 node:
   id: node
   label: Content
+  module: xtcelastica
+  type_path: XtendedContent\Index\EntityField\ERType
+  field_path: XtendedContent\Index\EntityField\ERNode
+  class: Node
   types:
     dossiers_thematiques: NodeDossier
-term:
+    actualite: Actualite
+taxonomy_term:
   id: taxonomy_term
   label: Term
+  module: xtcelastica
+  type_path: XtendedContent\Index\EntityField\ERType
+  field_path: XtendedContent\Index\EntityField\ERTerm
+  class: Term
   types:
     type_actualite: TypeActualite
+user:
+  id: user
+  label: User
+  module: xtcelastica
+  type_path: XtendedContent\Index\EntityField\ERType
+  field_path: XtendedContent\Index\EntityField\ERUser
+  class: User
+  types:
+    user: User

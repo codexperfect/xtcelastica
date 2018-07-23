@@ -10,5 +10,6 @@ namespace Drupal\xtcelastica\XtendedContent\Index\EntityField;
 
 
 interface EntityFieldInterface {
-
+  public function getEntity();
+  public function get();
 }

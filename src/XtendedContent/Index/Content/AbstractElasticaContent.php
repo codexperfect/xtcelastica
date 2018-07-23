@@ -9,9 +9,11 @@
 namespace Drupal\xtcelastica\XtendedContent\Index\Content;
 
 
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
+use Drupal\Component\Serialization\Json;
+use Drupal\xtcelastica\XtendedContent\Index\EntityField\EntityField;
 use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\IndexElasticaXtcRequest;
 use Drupal\xtcelastica\XtendedContent\Index\EntityField\Paragraph;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class AbstractElasticaContent implements ElasticaContentInterface
 {
@@ -38,53 +40,23 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
 
   public function index() {
     $this->prepareContent();
-    dump($this->data);
     $esObject = $this->buildEsObject();
-    dump($esObject);
 
     $xtcRequest = New IndexElasticaXtcRequest('csoec-es');
     $xtcRequest->setRequest('index-doc');
     $xtcRequest->setConfig();
-    dump($xtcRequest);
-    $response = "OK ???";
-//    $response = $xtcRequest->index($esObject);
+
+//    return $esObject;
+    $response = $xtcRequest->index($esObject);
     return $response;
-//    return New JsonResponse($response);
   }
 
   private function prepareContent(){
     foreach ($this->content->getFields() as $fieldname => $field){
-//            if('field_composants' == $fieldname){
-      if($field instanceof EntityReferenceRevisionsFieldItemList){
-        $target = $field->getSettings()['target_type'];
-        $definition = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions();
-
-        $entityStorage = \Drupal::entityTypeManager()->getStorage($target);
-        $eid = $field->getValue()[0]['target_id'];
-        $entity = $entityStorage->load($eid);
-
-        $type = $entity->get('type')->getString();
-        $class = '\Drupal\xtcelastica\XtendedContent\Index\EntityField\\'.$definition[$target]['types'][$type];
-        dump($class);
-
-        $content = New $class($field);
-        dump($content);
-        $this->data[$fieldname] = $content->get();
-        dump($this->data);
-//        $class = $target;
-//        dump($class);
-//        $content = $entity->load($eid);
-//        dump($content);
-////        $xtcField = New XtcEntityField($field);
-//        $type = $entity->getPluginDefinition();
-//        dump("INDEX");
-//        dump($type);
-//        $class = $type[$target]['types'][$entity->get('type')->getString()];
-//        dump($class);
-//        $this->data[$fieldname] = $xtcField->getValues();
-      }
+      $this->data[$fieldname] = (New EntityField($field))->getValues();
     }
   }
+
 
   protected function load(){
     $this->content = null;
