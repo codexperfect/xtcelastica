@@ -146,8 +146,24 @@ class AbstractElasticaClient extends AbstractClient
     return (!empty($this->request['type'])) ? $this->request['type'] : '';
   }
 
-  protected function getParams() {
+  public function getParams() {
     return (!empty($this->request['params'])) ? $this->request['params'] : [];
+  }
+
+  public function getMethod() {
+    return (!empty($this->request['method'])) ? $this->request['method'] : '';
+  }
+
+  protected function getArgs() {
+    $args = (!empty($this->xtcConfig['xtc']['serve_client'][$this->profile]['args']))
+      ? $this->xtcConfig['xtc']['serve_client'][$this->profile]['args']
+      : [];
+    foreach($args as $key => $arg){
+      if(!in_array($key, $this->request['args'])){
+        unset($args[$key]);
+      }
+    }
+    return $args;
   }
 
   protected function getConnectionInfo($item) {
@@ -159,7 +175,8 @@ class AbstractElasticaClient extends AbstractClient
    */
   public function setRequest($requestName) : ClientInterface
   {
-    $this->request = $this->xtcConfig['xtc']['serve_client']['request'][$requestName];
+    $request = $this->xtcConfig['xtc']['serve_client'][$this->profile]['request'];
+    $this->request = $this->xtcConfig['xtc']['serve_client']['request'][$request];
     return $this;
   }
 
@@ -168,7 +185,9 @@ class AbstractElasticaClient extends AbstractClient
    */
   public function setClientProfile() : ClientInterface
   {
-    $this->clientProfile = $this->xtcConfig['xtc']['serve_client']['server'][$this->profile];
+    $server = $this->xtcConfig['xtc']['serve_client'][$this->profile]['server'];
+    $this->clientProfile = $this->xtcConfig['xtc']['serve_client']['server'][$server];
+
     return $this;
   }
 

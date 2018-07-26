@@ -17,6 +17,11 @@ class AbstractElasticaXtcRequest extends AbstractXtcRequest
 
   private $request;
 
+  /**
+   * @var \Drupal\xtcelastica\XtendedContent\Serve\Client\AbstractElasticaClient
+   */
+  protected $client;
+
   protected function buildClient(){
     $this->client = $this->getElasticaClient();
     $this->client->setXtcConfig($this->config);
@@ -29,6 +34,9 @@ class AbstractElasticaXtcRequest extends AbstractXtcRequest
     return $this;
   }
 
+  /**
+   * @return \Drupal\xtcelastica\XtendedContent\Serve\Client\AbstractElasticaClient
+   */
   protected function getElasticaClient(){
     return New ElasticaClient($this->profile);
   }
@@ -38,9 +46,11 @@ class AbstractElasticaXtcRequest extends AbstractXtcRequest
    */
   protected function setWebservice()
   {
+    $server = $this->config['xtc']['serve_client'][$this->profile]['server'];
+    $request = $this->config['xtc']['serve_client'][$this->profile]['request'];
     $this->webservice = array_merge_recursive(
-      $this->config['xtc']['serve_client']['server'][$this->profile],
-      $this->config['xtc']['serve_client']['request'][$this->request],
+      $this->config['xtc']['serve_client']['server'][$server],
+      $this->config['xtc']['serve_client']['request'][$request],
       $this->config['xtc']['serve_xtcrequest'][$this->profile]
     );
     return $this;
