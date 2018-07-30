@@ -14,7 +14,7 @@ use Drupal\node\Entity\Node;
 abstract class AbstractElasticaNode extends AbstractElasticaContent
 {
 
-  protected function load(){
+  public function load(){
     $this->content = Node::load($this->id);
     return $this;
   }

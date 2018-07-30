@@ -30,10 +30,10 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
    */
   protected $data;
 
-  public function __construct($id) {
-    $this->id = $id;
-    $this->load();
-  }
+//  public function __construct($id) {
+//    $this->id = $id;
+//    $this->load();
+//  }
 
   public function index() {
     $this->prepareContent();
@@ -43,9 +43,13 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     $xtcRequest->setRequest('index-doc');
     $xtcRequest->setConfig();
 
-//    return $esObject;
     $response = $xtcRequest->index($esObject);
     return $response;
+  }
+
+  public function setEid($eid){
+    $this->id = $eid;
+    return $this;
   }
 
   protected function prepareContent(){
@@ -54,7 +58,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     }
   }
 
-  abstract protected function load();
+  abstract public function load();
 
   protected function buildEsObject(){
     $configuration = \Drupal::config('csoec_content.xtc.index')->getRawData();
