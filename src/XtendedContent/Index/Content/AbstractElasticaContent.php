@@ -9,11 +9,8 @@
 namespace Drupal\xtcelastica\XtendedContent\Index\Content;
 
 
-use Drupal\Component\Serialization\Json;
 use Drupal\xtcelastica\XtendedContent\Index\EntityField\EntityField;
 use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\IndexElasticaXtcRequest;
-use Drupal\xtcelastica\XtendedContent\Index\EntityField\Paragraph;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class AbstractElasticaContent implements ElasticaContentInterface
 {
@@ -42,7 +39,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     $this->prepareContent();
     $esObject = $this->buildEsObject();
 
-    $xtcRequest = New IndexElasticaXtcRequest('csoec-es');
+    $xtcRequest = New IndexElasticaXtcRequest('test_local');
     $xtcRequest->setRequest('index-doc');
     $xtcRequest->setConfig();
 
@@ -51,19 +48,15 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     return $response;
   }
 
-  private function prepareContent(){
+  protected function prepareContent(){
     foreach ($this->content->getFields() as $fieldname => $field){
       $this->data[$fieldname] = (New EntityField($field))->getValues();
     }
   }
 
+  abstract protected function load();
 
-  protected function load(){
-    $this->content = null;
-    return $this;
-  }
-
-  private function buildEsObject(){
+  protected function buildEsObject(){
     $configuration = \Drupal::config('csoec_content.xtc.index')->getRawData();
     $config = $configuration['xtcontent']['index_map']['es2d8'];
     $esArray = [];
@@ -73,7 +66,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     return $esArray;
   }
 
-  private function map($esName, $d8Name){
+  protected function map($esName, $d8Name){
     switch ($esName){
       default:
         $value = $this->data[$d8Name];

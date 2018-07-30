@@ -25,7 +25,12 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
     return New IndexElasticaClient($this->profile);
   }
 
-  public function index($document){
+  /**
+   * @param array $document
+   *
+   * @return $this|\Drupal\Core\StringTranslation\TranslatableMarkup|string
+   */
+  public function index(array $document){
     $method = $this->webservice['method'];
     $param = $this->webservice['params'];
     if ($this->isAllowed($method)){

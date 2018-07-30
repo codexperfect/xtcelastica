@@ -25,18 +25,19 @@ class IndexElasticaClient extends AbstractElasticaClient implements IndexElastic
     $this->param = $document;
     if(method_exists($this, $this->method)){
       $getMethod = $this->method;
-      $this->${"getMethod"}();
+      $this->${"getMethod"}($document);
     }
     return Json::encode($this->content);
   }
 
 
-  public function indexElasticaDoc(){
+  public function indexElasticaDoc($document){
     $clientParams = $this->getParams();
     $clientParams['type'] = '_doc';
     $clientParams['id'] = $this->param['id'];
     unset($this->param['id']);
-    $clientParams['body'] = $this->param;
+    //    $clientParams['body'] = $this->param;
+    $clientParams['body'] = $document;
     $this->content = $this->client->index($clientParams);
     return $this;
   }

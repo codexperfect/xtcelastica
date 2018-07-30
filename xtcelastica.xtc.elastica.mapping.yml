@@ -3,18 +3,24 @@
 file:
   id: file
   label: File
-  module: xtcelastica
-  type_path: XtendedContent\Index\EntityField\ERType
-  field_path: XtendedContent\Index\EntityField\ERFile
+  type:
+    module: xtcelastica
+    path: XtendedContent\Index\EntityField\ERType
+  field:
+    module: csoec_ws
+    path: XtendedContent\Index\EntityField\ERFile
   class: File
   types:
     image: Image
 paragraph:
   id: paragraphs
   label: Paragraphs
-  module: xtcelastica
-  type_path: XtendedContent\Index\EntityField\ERType
-  field_path: XtendedContent\Index\EntityField\ERParagraph
+  type:
+    module: xtcelastica
+    path: XtendedContent\Index\EntityField\ERType
+  field:
+    module: csoec_ws
+    path: XtendedContent\Index\EntityField\ERParagraph
   class: Paragraph
   types:
     editeur_texte: EditeurTexte
@@ -37,9 +43,12 @@ paragraph:
 node:
   id: node
   label: Content
-  module: xtcelastica
-  type_path: XtendedContent\Index\EntityField\ERType
-  field_path: XtendedContent\Index\EntityField\ERNode
+  type:
+    module: xtcelastica
+    path: XtendedContent\Index\EntityField\ERType
+  field:
+    module: csoec_ws
+    path: XtendedContent\Index\EntityField\ERNode
   class: Node
   types:
     dossiers_thematiques: NodeDossier
@@ -47,18 +56,24 @@ node:
 taxonomy_term:
   id: taxonomy_term
   label: Term
-  module: xtcelastica
-  type_path: XtendedContent\Index\EntityField\ERType
-  field_path: XtendedContent\Index\EntityField\ERTerm
+  type:
+    module: xtcelastica
+    path: XtendedContent\Index\EntityField\ERType
+  field:
+    module: csoec_ws
+    path: XtendedContent\Index\EntityField\ERTerm
   class: Term
   types:
     type_actualite: TypeActualite
 user:
   id: user
   label: User
-  module: xtcelastica
-  type_path: XtendedContent\Index\EntityField\ERType
-  field_path: XtendedContent\Index\EntityField\ERUser
+  type:
+    module: xtcelastica
+    path: XtendedContent\Index\EntityField\ERType
+  field:
+    module: csoec_ws
+    path: XtendedContent\Index\EntityField\ERUser
   class: User
   types:
     user: User
