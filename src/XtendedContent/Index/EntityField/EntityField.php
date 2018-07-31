@@ -71,20 +71,20 @@ class EntityField implements EntityFieldInterface {
 
   private function getFieldValue(){
     return $this->getFieldMultiValues($this->field->getValue()[0]);
-    $this->data[$this->field->getName()] = $content;
   }
 
   private function getFieldValuesToOne(){
     foreach ($this->field->getValue() as $key => $value) {
-      return $this->getFieldMultiValues($value);
-      $this->data[$this->field->getName()] = $content;    }
+      $content[$key] = $this->getFieldMultiValues($value);
+    }
+    return $content;
   }
 
   private function getFieldValues(){
     foreach ($this->field->getValue() as $key => $value) {
-      return $this->getFieldMultiValues($value);
-      $this->data[$this->field->getName()][$key] = $content;
+      $content = $this->getFieldMultiValues($value);
     }
+    return $content;
   }
 
   private function getFieldMultiValues($value){
@@ -131,14 +131,7 @@ class EntityField implements EntityFieldInterface {
     if($ERType instanceof EntityFieldInterface){
       $type = $ERType->getType();
       $fieldClass = $this->buildFieldClass($target, $type);
-      $paragraph = (New $fieldClass($this->field))->get();
-      return $paragraph;
-//      if(in_array($type, ['type_actualite'])){
-//        return $paragraph;
-//      }
-//      else {
-//        return array_merge(['paragraphType' => $type], $paragraph);
-//      }
+      return (New $fieldClass($this->field))->get();
     }
 
   }

@@ -30,21 +30,14 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
    */
   protected $data;
 
-//  public function __construct($id) {
-//    $this->id = $id;
-//    $this->load();
-//  }
-
   public function index() {
-    $this->prepareContent();
     $esObject = $this->buildEsObject();
 
     $xtcRequest = New IndexElasticaXtcRequest('test_local');
     $xtcRequest->setRequest('index-doc');
     $xtcRequest->setConfig();
 
-    $response = $xtcRequest->index($esObject);
-    return $response;
+    return $xtcRequest->index($esObject);
   }
 
   public function setEid($eid){
@@ -52,10 +45,9 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     return $this;
   }
 
-  protected function prepareContent(){
-    foreach ($this->content->getFields() as $fieldname => $field){
-      $this->data[$fieldname] = (New EntityField($field))->getValues();
-    }
+  protected function prepareField($fieldname){
+    $field = $this->content->get($fieldname);
+    return (New EntityField($field))->getValues();
   }
 
   abstract public function load();
@@ -73,7 +65,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
   protected function map($esName, $d8Name){
     switch ($esName){
       default:
-        $value = $this->data[$d8Name];
+        $value = $this->prepareField($d8Name);
     }
     return $value;
   }
