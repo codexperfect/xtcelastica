@@ -32,9 +32,9 @@ class EntityField implements EntityFieldInterface {
    *
    * @param \Drupal\Core\Field\FieldItemListInterface $field
    */
-  public function __construct(FieldItemListInterface $field) {
+  public function __construct(FieldItemListInterface $field, $delta = 0) {
     $this->field = $field;
-    $this->id = (!empty($field->getValue()[0]['target_id'])) ? $field->getValue()[0]['target_id'] : '';
+    $this->id = (!empty($field->getValue()[$delta]['target_id'])) ? $field->getValue()[$delta]['target_id'] : '';
     $this->load();
   }
 
@@ -75,34 +75,36 @@ class EntityField implements EntityFieldInterface {
 
   private function getFieldValuesToOne(){
     foreach ($this->field->getValue() as $key => $value) {
-      $content[$key] = $this->getFieldMultiValues($value);
+//      $content[$key] = $this->getFieldMultiValues($value, $key);
+      $content = $this->getFieldMultiValues($value, $key);
     }
     return $content;
   }
 
   private function getFieldValues(){
     foreach ($this->field->getValue() as $key => $value) {
-      $content = $this->getFieldMultiValues($value);
+//      $content = $this->getFieldMultiValues($value, $key);
+      $content[$key] = $this->getFieldMultiValues($value, $key);
     }
     return $content;
   }
 
-  private function getFieldMultiValues($value){
+  private function getFieldMultiValues($value, $delta = 0){
     if ($this->field instanceof EntityReferenceFieldItemList
       && !in_array($this->field->getName(), ['type']) ){
-      return $this->getERFieldValues();
+      return $this->getERFieldValues($value, $delta);
     }
     else{
-      return $this->getPlainValues($value);
+      return $this->getPlainValues($value, $delta);
     }
   }
 
-  private function getPlainValues($value){
+  private function getPlainValues($value, $delta){
     if (2 > count($value) && !empty($value[0]) && (2 > count($value[0]))) {
       $data = $this->field->getString();
     }
     else {
-      $value = $this->field->getValue()[0];
+      $value = $this->field->getValue()[$delta];
       if(isset($value['value'])){
         $data = $value['value'];
       }
@@ -123,17 +125,23 @@ class EntityField implements EntityFieldInterface {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  private function getERFieldValues(){
+  private function getERFieldValues($value, $delta){
     // Get ER field type.
     $target = $this->field->getSettings()['target_type'];
     $typeClass = $this->buildTypeClass($target);
-    $ERType = New $typeClass($this->field);
+    $ERType = New $typeClass($this->field, $delta);
     if($ERType instanceof EntityFieldInterface){
       $type = $ERType->getType();
       $fieldClass = $this->buildFieldClass($target, $type);
-      return (New $fieldClass($this->field))->get();
-    }
+      $content = (New $fieldClass($this->field, $delta))->get();
 
+      if(in_array($type, ['type_actualite', 'image']) && 'paragraph' != $target){
+        return $content;
+      }
+      else {
+        return array_merge(['paragraphType' => $type], $content);
+      }
+    }
   }
 
   private function buildTypeClass($target){
