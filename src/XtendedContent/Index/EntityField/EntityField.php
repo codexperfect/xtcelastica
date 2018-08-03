@@ -153,4 +153,20 @@ class EntityField implements EntityFieldInterface {
     return '\Drupal\\'.$config['field']['module'].'\\'.$config['field']['path'].'\\'.$config['types'][$type];
   }
 
+  /**
+   * @return string
+   */
+  public function getId(): string {
+    return $this->id;
+  }
+
+  /**
+   * @param string $id
+   */
+  public function setId(string $id) {
+    $this->id = $id;
+    return $this;
+  }
+
+
 }
