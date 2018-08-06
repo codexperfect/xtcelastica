@@ -48,10 +48,12 @@ class AbstractElasticaXtcRequest extends AbstractXtcRequest
   {
     $server = $this->config['xtc']['serve_client'][$this->profile]['server'];
     $request = $this->config['xtc']['serve_client'][$this->profile]['request'];
+    $requestSettings = (is_array($this->config['xtc']['serve_client']['request'][$request])) ? $this->config['xtc']['serve_client']['request'][$request] : [];
+    $xtcRequestSettings = (!empty($this->config['xtc']['serve_xtcrequest'][$this->profile])) ? $this->config['xtc']['serve_xtcrequest'][$this->profile] : [];
     $this->webservice = array_merge_recursive(
       $this->config['xtc']['serve_client']['server'][$server],
-      $this->config['xtc']['serve_client']['request'][$request],
-      $this->config['xtc']['serve_xtcrequest'][$this->profile]
+      $requestSettings,
+      $xtcRequestSettings
     );
     return $this;
   }
