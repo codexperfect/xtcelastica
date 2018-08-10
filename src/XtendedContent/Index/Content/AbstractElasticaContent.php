@@ -64,11 +64,24 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
 
   protected function map($esName, $d8Name){
     switch ($esName){
+      case 'learningResourceType':
+        $d8Name = $this->getActiveField($d8Name);
       default:
         $value = $this->prepareField($d8Name);
     }
     return $value;
   }
 
+  protected function getActiveField($fieldname){
+    $name = [
+      'Actualité' => 'field_type_actualite',
+      'Comité, commissions ou autre instance' => 'field_type_de_comite',
+      'Ressource documentaire ou service de l\'Ordre' => 'field_type_de_ressource',
+      'Référentiel normatif' => 'field_type_de_referentiel',
+      'Article' => 'field_type_d_article',
+    ];
+    $contenu = $this->content->get($fieldname);
+    return $name[$contenu->getString()];
+  }
 
 }

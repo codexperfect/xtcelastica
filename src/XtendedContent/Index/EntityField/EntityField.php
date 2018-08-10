@@ -10,6 +10,7 @@ namespace Drupal\xtcelastica\XtendedContent\Index\EntityField;
 
 use Drupal\Core\Field\EntityReferenceFieldItemList;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\csoec_ws\XtendedContent\Index\EntityField\ERParagraph\ProfilAutorise;
 
 class EntityField implements EntityFieldInterface {
 
@@ -58,15 +59,15 @@ class EntityField implements EntityFieldInterface {
   public function getValues(){
     $values = $this->field->getValue();
     if (2 > count($values) && !empty($values[0]) && (2 > count($values[0]))) {
-      $data = $this->getFieldValue();
+      return $this->getFieldValue();
     }
-    elseif (2 > count($values)) {
-      $data = $this->getFieldValuesToOne();
+    if (2 > count($values)) {
+      return $this->getFieldValuesToOne();
     }
-    else {
-      $data = $this->getFieldValues();
+    if('field_profils_autorises' == $this->field->getName()){
+      return $this->getFieldValue();
     }
-    return $data;
+    return $this->getFieldValues();
   }
 
   private function getFieldValue(){
@@ -75,7 +76,6 @@ class EntityField implements EntityFieldInterface {
 
   private function getFieldValuesToOne(){
     foreach ($this->field->getValue() as $key => $value) {
-//      $content[$key] = $this->getFieldMultiValues($value, $key);
       $content = $this->getFieldMultiValues($value, $key);
     }
     return $content;
@@ -83,15 +83,17 @@ class EntityField implements EntityFieldInterface {
 
   private function getFieldValues(){
     foreach ($this->field->getValue() as $key => $value) {
-//      $content = $this->getFieldMultiValues($value, $key);
       $content[$key] = $this->getFieldMultiValues($value, $key);
     }
     return $content;
   }
 
   private function getFieldMultiValues($value, $delta = 0){
-    if ($this->field instanceof EntityReferenceFieldItemList
-      && !in_array($this->field->getName(), ['type']) ){
+    if (
+      ($this->field instanceof EntityReferenceFieldItemList
+        && !in_array($this->field->getName(), ['type'])
+      )
+    ){
       return $this->getERFieldValues($value, $delta);
     }
     else{
@@ -101,21 +103,23 @@ class EntityField implements EntityFieldInterface {
 
   private function getPlainValues($value, $delta){
     if (2 > count($value) && !empty($value[0]) && (2 > count($value[0]))) {
-      $data = $this->field->getString();
+      return $this->field->getString();
     }
-    else {
-      $value = $this->field->getValue()[$delta];
-      if(isset($value['value'])){
-        $data = $value['value'];
-      }
-      elseif(isset($value['target_id'])){
-        $data = $value['target_id'];
-      }
-      else {
-        $data = $value;
+    $value = $this->field->getValue()[$delta];
+    if('field_profils_autorises' == $this->field->getName()){
+      $ERPlain = New ProfilAutorise($this->field, $delta);
+      if($ERPlain instanceof EntityFieldInterface){
+        $ERPlain->entity = $this->field->getEntity();
+        return $ERPlain->get();
       }
     }
-    return $data;
+    if(isset($value['value'])){
+      return $value['value'];
+    }
+    if(isset($value['target_id'])){
+      return $value['target_id'];
+    }
+    return $value;
   }
 
   /**
