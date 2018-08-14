@@ -9,6 +9,7 @@
 namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 
+use Drupal\xtc\XtendedContent\API\Config;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClient;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -45,7 +46,14 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
     else{
       return (t('Request error: The "'.$method.'" method is not allowed.'));
     }
+  }
 
+  public function getConfigFromYaml()
+  {
+    $client = Config::getConfigs('serve', 'client');
+    $xtcrequest = Config::getConfigs('serve', 'xtcrequest');
+    $index = Config::getConfigs('serve', 'index');
+    return array_merge_recursive($client, $xtcrequest, $index);
   }
 
 }

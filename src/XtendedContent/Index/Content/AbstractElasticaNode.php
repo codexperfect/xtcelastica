@@ -19,4 +19,10 @@ abstract class AbstractElasticaNode extends AbstractElasticaContent
     return $this;
   }
 
+  public function index() {
+    $esObject = $this->buildEsObject();
+    $service = \Drupal::service('csoec_content.es_index_node')->setConfig();
+    return $service->index($esObject);
+  }
+
 }

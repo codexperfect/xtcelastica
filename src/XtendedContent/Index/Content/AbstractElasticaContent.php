@@ -53,11 +53,19 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
   abstract public function load();
 
   protected function buildEsObject(){
-    $configuration = \Drupal::config('csoec_content.xtc.index')->getRawData();
-    $config = $configuration['xtcontent']['index_map']['es2d8'];
+    $this->load();
+    $configuration = \Drupal::config('csoec_content.xtc.serve.index')->getRawData();
+    $config = $configuration['xtcontent']['index_map'][$this->content->getEntityTypeId()][$this->content->bundle()];
+    $params = $configuration['xtcontent']['index_map']['elastica'][$this->content->getEntityTypeId()];
     $esArray = [];
+    $esArray['params'] = $params;
     foreach($config as $esName => $d8Name){
-      $esArray[$esName] = $this->map($esName, $d8Name);
+      if('body' == $esName && 'field_composants' != $d8Name){
+        $esArray['object'][$esName]['contenu']['text'] = $this->map($esName, $d8Name);
+      }
+      else{
+        $esArray['object'][$esName] = $this->map($esName, $d8Name);
+      }
     }
     return $esArray;
   }
