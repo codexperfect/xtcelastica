@@ -16,7 +16,7 @@ use Elastica\Request;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 
-class AbstractElasticaClient extends AbstractClient
+abstract class AbstractElasticaClient extends AbstractClient implements ElasticaClientInterface
 {
 
   /**

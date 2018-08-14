@@ -10,9 +10,9 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 
 use Drupal\xtc\XtendedContent\Serve\XtcRequest\AbstractXtcRequest;
-use Drupal\xtcelastica\XtendedContent\Serve\Client\ElasticaClient;
+use Drupal\xtcelastica\XtendedContent\Serve\Client\GetElasticaClient;
 
-class AbstractElasticaXtcRequest extends AbstractXtcRequest
+abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
 {
 
   private $request;
@@ -37,9 +37,7 @@ class AbstractElasticaXtcRequest extends AbstractXtcRequest
   /**
    * @return \Drupal\xtcelastica\XtendedContent\Serve\Client\AbstractElasticaClient
    */
-  protected function getElasticaClient(){
-    return New ElasticaClient($this->profile);
-  }
+  abstract protected function getElasticaClient();
 
   /**
    * @return $this

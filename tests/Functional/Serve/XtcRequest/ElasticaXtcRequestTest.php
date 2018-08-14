@@ -12,7 +12,7 @@ namespace Drupal\Tests\xtcelastica\Functional\Serve\XtcRequest;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Tests\UnitTestCase;
 use Drupal\xtc\XtendedContent\Serve\XtcRequest\XtcRequestInterface;
-use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest;
+use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\GetElasticaXtcRequest;
 use Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\IndexElasticaXtcRequest;
 
 class ElasticaXtcRequestTest extends UnitTestCase
@@ -46,7 +46,7 @@ class ElasticaXtcRequestTest extends UnitTestCase
   }
 
   private function performRequest($profile, $request, $id = ''){
-    $xtcRequest = New ElasticaXtcRequest($profile);
+    $xtcRequest = New GetElasticaXtcRequest($profile);
     $xtcRequest->setRequest($request);
     $fullconfig = array_merge_recursive($this->setXtcConfig(),$this->setClientConfig());
     $xtcRequest->setConfig($fullconfig);
