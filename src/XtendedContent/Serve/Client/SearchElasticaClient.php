@@ -11,6 +11,30 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\Client;
 
 class SearchElasticaClient extends AbstractElasticaClient
 {
+  protected $response;
+
+  protected function triggerSearch($callback, $value = '', $label = ''){
+    $this->initClientParams();
+    $this->response = $this->client->search($this->clientParams);
+    if(!empty($this->response)){
+      $this->${"callback"}($value, $label);
+    }
+    return $this;
+  }
+
+  protected function initClientParams(){
+    if(!empty($this->param['count']) ){
+      $this->clientParams['size'] = $this->param['count'];
+    }
+    foreach (self::SEARCH_PARAMS as $param){
+      if(!empty($this->param[$param]) ){
+        $this->clientParams[$param] = $this->param[$param];
+      }
+      if(empty($this->clientParams[$param]) && !empty($this->getArg($param))){
+        $this->clientParams[$param] = $this->getArg($param);
+      }
+    }
+  }
 
   public function searchElasticaDocByQuery(){
     $clientParams = $this->getParams();

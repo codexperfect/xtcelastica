@@ -18,6 +18,13 @@ use Elasticsearch\ClientBuilder;
 
 abstract class AbstractElasticaClient extends AbstractClient implements ElasticaClientInterface
 {
+  const SEARCH_PARAMS = ['index','type','analyzer','analyze_wildcard',
+    'default_operator','df','explain','fields','from','ignore_indices',
+    'indices_boost','lenient','lowercase_expanded_terms','preference',
+    'q','query_cache','request_cache','routing','scroll','search_type',
+    'size','sort','source','_source','_source_exclude','_source_include',
+    'stats','suggest_field','suggest_mode','suggest_size','suggest_text',
+    'timeout','terminate_after','version'];
 
   /**
    * @var string
@@ -25,9 +32,14 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
   protected $method;
 
   /**
-   * @var string
+   * @var array
    */
   protected $param;
+
+  /**
+   * @var string
+   */
+  protected $clientParams;
 
   /**
    * @var string
@@ -49,6 +61,11 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
    */
   protected $request;
 
+  /**
+   * @var array
+   */
+  protected $args;
+
 
   /**
    * @param string $method
@@ -58,7 +75,8 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
    */
   public function init($method, $param = '') : ClientInterface {
     $this->method = $method;
-    $this->param = $param;
+    parse_str($param, $this->param);
+    $this->setArgs();
     return $this;
   }
 
@@ -66,6 +84,7 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
    * @return string
    */
   public function get() : string {
+    $this->clientParams = $this->getParams();
     if(method_exists($this, $this->method)){
       $getMethod = $this->method;
       $this->${"getMethod"}();
@@ -154,16 +173,24 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
     return (!empty($this->request['method'])) ? $this->request['method'] : '';
   }
 
-  protected function getArgs() {
-    $args = (!empty($this->xtcConfig['xtc']['serve_client'][$this->profile]['args']))
+  protected function setArgs() {
+    $this->args = (!empty($this->xtcConfig['xtc']['serve_client'][$this->profile]['args']))
       ? $this->xtcConfig['xtc']['serve_client'][$this->profile]['args']
       : [];
-    foreach($args as $key => $arg){
+    foreach($this->args as $key => $arg){
       if(!in_array($key, $this->request['args'])){
-        unset($args[$key]);
+        unset($this->args[$key]);
       }
     }
-    return $args;
+    return $this;
+  }
+
+  protected function getArgs() {
+    return $this->args;
+  }
+
+  protected function getArg($name) {
+    return (!empty($this->args[$name])) ? $this->args[$name] : '';
   }
 
   protected function getConnectionInfo($item) {

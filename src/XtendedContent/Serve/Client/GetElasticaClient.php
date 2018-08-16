@@ -13,7 +13,7 @@ class GetElasticaClient extends AbstractElasticaClient
 {
   public function getElasticaDataByID(){
     $clientParams = $this->getParams();
-    $clientParams['id'] = $this->param;
+    $clientParams['id'] = $this->param['q'];
     try {
       $this->content = $this->client->get($clientParams);
       return $this;
@@ -24,7 +24,7 @@ class GetElasticaClient extends AbstractElasticaClient
 
   public function getKnownDoc(){
     $clientParams = $this->getParams();
-    $queryParams = explode('/', $this->param);
+    $queryParams = explode('/', $this->param['q']);
     $clientParams['index'] = $queryParams[0];
     $clientParams['type'] = $queryParams[1];
     $clientParams['id'] = $queryParams[2];
