@@ -10,7 +10,6 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 
 use Drupal\xtc\XtendedContent\Serve\XtcRequest\AbstractXtcRequest;
-use Drupal\xtcelastica\XtendedContent\Serve\Client\GetElasticaClient;
 
 abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
 {
