@@ -40,6 +40,9 @@ class SearchElasticaClient extends AbstractElasticaClient
     ){
       unset($this->clientParams['q']);
     }
+    elseif(empty($this->param['q'])){
+      $this->param['q'] = '';
+    }
   }
 
   public function searchElasticaDocByQuery(){
