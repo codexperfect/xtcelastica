@@ -87,6 +87,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
       'Ressource documentaire ou service de l\'Ordre' => 'field_type_de_ressource',
       'Référentiel normatif' => 'field_type_de_referentiel',
       'Article' => 'field_type_d_article',
+      'Application web' => 'field_type_d_application_web',
     ];
     $contenu = $this->content->get($fieldname);
     return $name[$contenu->getString()];
