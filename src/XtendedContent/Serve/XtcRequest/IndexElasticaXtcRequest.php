@@ -34,26 +34,20 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
   public function index(array $document){
     $method = $this->webservice['method'];
     $param = $this->webservice['params'];
-    if ($this->isAllowed($method)){
-      try {
-        $this->client->init($method, $param);
-        $this->client->index($document);
-        return $this;
-      } catch (RequestException $e) {
-        return ('Request error: ' . $e->getMessage());
-      }
-    }
-    else{
-      return (t('Request error: The "'.$method.'" method is not allowed.'));
+    try {
+      $this->client->init($method, $param);
+      $this->client->index($document);
+      return $this;
+    } catch (RequestException $e) {
+      return ('Request error: ' . $e->getMessage());
     }
   }
 
   public function getConfigFromYaml()
   {
     $client = Config::getConfigs('serve', 'client');
-    $xtcrequest = Config::getConfigs('serve', 'xtcrequest');
     $index = Config::getConfigs('serve', 'index');
-    return array_merge_recursive($client, $xtcrequest, $index);
+    return array_merge_recursive($client, $index);
   }
 
 }

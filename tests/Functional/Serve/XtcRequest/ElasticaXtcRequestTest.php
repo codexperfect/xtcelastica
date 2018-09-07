@@ -48,7 +48,7 @@ class ElasticaXtcRequestTest extends UnitTestCase
   private function performRequest($profile, $request, $id = ''){
     $xtcRequest = New GetElasticaXtcRequest($profile);
     $xtcRequest->setRequest($request);
-    $fullconfig = array_merge_recursive($this->setXtcConfig(),$this->setClientConfig());
+    $fullconfig = $this->setClientConfig();
     $xtcRequest->setConfig($fullconfig);
     $xtcRequest->getClient()->setXtcConfig($this->setClientConfig());
     $this->xtcRequest = $xtcRequest;
@@ -62,24 +62,6 @@ class ElasticaXtcRequestTest extends UnitTestCase
     //    $expected = $this->expected('account-'.$id);
 //    $this->assertSame($expected, $response);
     $this->assertSame(1, 1);
-  }
-
-  private function setXtcConfig(){
-    return [
-      "xtc" => [
-        "serve_xtcrequest" => [
-          "test_local" => [
-            "allowed" => [
-              0 => 'getElasticaData',
-              1 => 'getElasticaDataByID',
-              1 => 'getKnownDoc',
-              2 => 'putElasticaData',
-              3 => 'searchElasticaDocByQuery'
-            ],
-          ],
-        ],
-      ],
-    ];
   }
 
   private function setClientConfig(){
