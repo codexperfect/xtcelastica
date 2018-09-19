@@ -43,6 +43,23 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
     }
   }
 
+  /**
+   * @param array $document
+   *
+   * @return $this|\Drupal\Core\StringTranslation\TranslatableMarkup|string
+   */
+  public function unindex(array $document){
+    $method = $this->webservice['method'];
+    $param = $this->webservice['params'];
+    try {
+      $this->client->init($method, $param);
+      $this->client->index($document);
+      return $this;
+    } catch (RequestException $e) {
+      return ('Request error: ' . $e->getMessage());
+    }
+  }
+
   public function getConfigFromYaml()
   {
     $client = Config::getConfigs('serve', 'client');

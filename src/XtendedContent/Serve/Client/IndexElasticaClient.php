@@ -30,6 +30,26 @@ class IndexElasticaClient extends AbstractElasticaClient implements IndexElastic
     return Json::encode($this->content);
   }
 
+  /**
+   * @param $document
+   *
+   * @return string
+   */
+  public function unindexElasticaDoc($document) : string {
+    $clientParams = $this->getParams();
+    $clientParams['index'] = $document['params']['index'];
+    $clientParams['type'] = $document['params']['type'];
+    $clientParams['id'] = $document['object']['id'];
+    unset($this->param['id']);
+    $this->client->delete($clientParams);
+    return '';
+  }
+
+  /**
+   * @param $document
+   *
+   * @return $this
+   */
   public function indexElasticaDoc($document){
     $clientParams = $this->getParams();
     $clientParams['index'] = $document['params']['index'];
@@ -41,6 +61,9 @@ class IndexElasticaClient extends AbstractElasticaClient implements IndexElastic
     return $this;
   }
 
+  /**
+   * @return $this
+   */
   public function reindexElastica(){
     $clientParams = $this->getParams();
     $this->content = $this->client->reindex($clientParams);

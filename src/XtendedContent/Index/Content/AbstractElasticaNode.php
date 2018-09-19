@@ -25,4 +25,10 @@ abstract class AbstractElasticaNode extends AbstractElasticaContent
     return $service->index($esObject);
   }
 
+  public function unindex() {
+    $esObject = $this->buildEsObject();
+    $service = \Drupal::service('csoec_content.es_unindex_node')->setConfig();
+    return $service->unindex($esObject);
+  }
+
 }

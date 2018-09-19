@@ -40,6 +40,16 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     return $xtcRequest->index($esObject);
   }
 
+  public function unindex() {
+    $esObject = $this->buildEsObject();
+
+    $xtcRequest = New IndexElasticaXtcRequest('test_local');
+    $xtcRequest->setRequest('unindex-doc');
+    $xtcRequest->setConfig();
+
+    return $xtcRequest->unindex($esObject);
+  }
+
   public function setEid($eid){
     $this->id = $eid;
     return $this;

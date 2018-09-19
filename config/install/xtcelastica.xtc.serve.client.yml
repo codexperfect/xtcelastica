@@ -21,3 +21,7 @@ xtcontent:
         method: 'indexElasticaDoc'
         params:
           index: 'contenu'
+      unindex-doc:
+        method: 'unindexElasticaDoc'
+        params:
+          index: 'contenu'

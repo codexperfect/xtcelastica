@@ -12,4 +12,6 @@ namespace Drupal\xtcelastica\XtendedContent\Index\Content;
 interface ElasticaContentInterface {
 
   public function index();
+
+  public function unindex();
 }
