@@ -1,0 +1,20 @@
+xtcontent:
+  index_map:
+    elastica:
+      node:
+        index: 'drupal'
+        type: '_doc'
+    node:
+      article:
+        id: 'nid'
+        category: 'type'
+        headline: 'title'
+        body: 'body'
+        image: 'field_image'
+        tag: 'field_tag'
+      page:
+        id: 'nid'
+        category: 'type'
+        headline: 'title'
+        body: 'body'
+

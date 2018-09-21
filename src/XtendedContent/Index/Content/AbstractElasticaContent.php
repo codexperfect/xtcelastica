@@ -30,25 +30,9 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
    */
   protected $data;
 
-  public function index() {
-    $esObject = $this->buildEsObject();
+  abstract public function index();
 
-    $xtcRequest = New IndexElasticaXtcRequest('test_local');
-    $xtcRequest->setRequest('index-doc');
-    $xtcRequest->setConfig();
-
-    return $xtcRequest->index($esObject);
-  }
-
-  public function unindex() {
-    $esObject = $this->buildEsObject();
-
-    $xtcRequest = New IndexElasticaXtcRequest('test_local');
-    $xtcRequest->setRequest('unindex-doc');
-    $xtcRequest->setConfig();
-
-    return $xtcRequest->unindex($esObject);
-  }
+  abstract public function unindex();
 
   public function setEid($eid){
     $this->id = $eid;
@@ -64,7 +48,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
 
   protected function buildEsObject(){
     $this->load();
-    $configuration = \Drupal::config('csoec_content.xtc.serve.index')->getRawData();
+    $configuration = $this->getConfig();
     $config = $configuration['xtcontent']['index_map'][$this->content->getEntityTypeId()][$this->content->bundle()];
     $params = $configuration['xtcontent']['index_map']['elastica'][$this->content->getEntityTypeId()];
     $esArray = [];
@@ -78,6 +62,10 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
       }
     }
     return $esArray;
+  }
+
+  protected function getConfig(){
+    return \Drupal::config('xtcelastica.xtc.serve.index')->getRawData();
   }
 
   protected function map($esName, $d8Name){

@@ -21,13 +21,13 @@ abstract class AbstractElasticaNode extends AbstractElasticaContent
 
   public function index() {
     $esObject = $this->buildEsObject();
-    $service = \Drupal::service('csoec_content.es_index_node')->setConfig();
+    $service = \Drupal::service('xtcelastica.es_index_node')->setConfig();
     return $service->index($esObject);
   }
 
   public function unindex() {
     $esObject = $this->buildEsObject();
-    $service = \Drupal::service('csoec_content.es_unindex_node')->setConfig();
+    $service = \Drupal::service('xtcelastica.es_unindex_node')->setConfig();
     return $service->unindex($esObject);
   }
 

@@ -10,7 +10,6 @@ namespace Drupal\xtcelastica\XtendedContent\Index\EntityField;
 
 use Drupal\Core\Field\EntityReferenceFieldItemList;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\csoec_ws\XtendedContent\Index\EntityField\ERParagraph\ProfilAutorise;
 
 class EntityField implements EntityFieldInterface {
 
@@ -101,18 +100,12 @@ class EntityField implements EntityFieldInterface {
     }
   }
 
-  private function getPlainValues($value, $delta){
+  protected function getPlainValues($value, $delta){
     if (2 > count($value) && !empty($value[0]) && (2 > count($value[0]))) {
       return $this->field->getString();
     }
     $value = $this->field->getValue()[$delta];
-    if('field_profils_autorises' == $this->field->getName()){
-      $ERPlain = New ProfilAutorise($this->field, $delta);
-      if($ERPlain instanceof EntityFieldInterface){
-        $ERPlain->entity = $this->field->getEntity();
-        return $ERPlain->get();
-      }
-    }
+
     if(isset($value['value'])){
       return $value['value'];
     }

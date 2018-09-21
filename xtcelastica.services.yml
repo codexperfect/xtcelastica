@@ -7,3 +7,11 @@ services:
   plugin.manager.xtc_elastica_mapping:
     class: Drupal\xtcelastica\Plugin\XtcElasticaMappingManager
     arguments: ['@module_handler', '@cache.discovery']
+
+  xtcelastica.es_index_node:
+    class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\IndexElasticaXtcRequest
+    arguments: ['index-node']
+  xtcelastica.es_unindex_node:
+    class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\IndexElasticaXtcRequest
+    arguments: ['unindex-node']
+
