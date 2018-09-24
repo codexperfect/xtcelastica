@@ -57,7 +57,15 @@ class IndexElasticaClient extends AbstractElasticaClient implements IndexElastic
     $clientParams['id'] = $document['object']['id'];
     unset($this->param['id']);
     $clientParams['body'] = $document['object'];
-    $this->content = $this->client->index($clientParams);
+    try{
+      $this->content = $this->client->index($clientParams);
+    }
+    catch (\Exception $e){
+      $message = "Le contenu n'a pas pu être indexé suite à une erreur : merci d'alerter l'administrateur du site.";
+      \Drupal::messenger()->addError($message);
+      $errormsg = $message."<br /><br />".$e;
+      \Drupal::logger('xtcelastica')->critical($errormsg);
+    }
     return $this;
   }
 
