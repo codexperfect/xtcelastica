@@ -34,7 +34,7 @@ class EntityField implements EntityFieldInterface {
    */
   public function __construct(FieldItemListInterface $field, $delta = 0) {
     $this->field = $field;
-    $this->id = (!empty($field->getValue()[$delta]['target_id'])) ? $field->getValue()[$delta]['target_id'] : '';
+    $this->id = (!empty($field->getValue()[$delta]['target_id'])) ? $field->getValue()[$delta]['target_id'] : $this->field->getEntity()->id();
     $this->load();
   }
 
@@ -106,6 +106,10 @@ class EntityField implements EntityFieldInterface {
     }
     $value = $this->field->getValue()[$delta];
 
+    if(in_array($this->field->getName(), ['field_profils_autorises'])){
+      return $this->getComplexFieldValues($value, $delta);
+    }
+
     if(isset($value['value'])){
       return $value['value'];
     }
@@ -115,6 +119,12 @@ class EntityField implements EntityFieldInterface {
     return $value;
   }
 
+  protected function getComplexFieldValues($value, $delta){
+    // Get ER field type.
+    $fieldClass = $this->buildFieldClass();
+    return (New $fieldClass($this->field, $delta))->get();
+  }
+
   /**
    * @param array $value
    *
@@ -122,7 +132,7 @@ class EntityField implements EntityFieldInterface {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  private function getERFieldValues($value, $delta){
+  protected function getERFieldValues($value, $delta){
     // Get ER field type.
     $target = $this->field->getSettings()['target_type'];
     $typeClass = $this->buildTypeClass($target);
@@ -140,14 +150,20 @@ class EntityField implements EntityFieldInterface {
     }
   }
 
-  private function buildTypeClass($target){
+  protected function buildTypeClass($target){
     $config = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions()[$target];
     return '\Drupal\\'.$config['type']['module'].'\\'.$config['type']['path'].'\\'.$config['class'];
   }
 
-  private function buildFieldClass($target, $type){
-    $config = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions()[$target];
-    return '\Drupal\\'.$config['field']['module'].'\\'.$config['field']['path'].'\\'.$config['types'][$type];
+  protected function buildFieldClass($target = '', $type = ''){
+    if(empty($target)){
+      $config = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions()['complexfield'];
+      return '\Drupal\\' . $config['field']['module'] . '\\' . $config['field']['path'] . '\\' . $config['types'][$this->field->getName()];
+    }
+    else {
+      $config = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions()[$target];
+      return '\Drupal\\' . $config['field']['module'] . '\\' . $config['field']['path'] . '\\' . $config['types'][$type];
+    }
   }
 
   /**
@@ -164,6 +180,5 @@ class EntityField implements EntityFieldInterface {
     $this->id = $id;
     return $this;
   }
-
 
 }
