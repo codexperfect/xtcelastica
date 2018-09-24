@@ -177,6 +177,9 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
     $this->args = (!empty($this->xtcConfig['xtc']['serve_client'][$this->profile]['args']))
       ? $this->xtcConfig['xtc']['serve_client'][$this->profile]['args']
       : [];
+    foreach ($this->param as $key => $value){
+      $this->args[$key] = $value;
+    }
     foreach($this->args as $key => $arg){
       if(!in_array($key, $this->request['args'])){
         unset($this->args[$key]);
