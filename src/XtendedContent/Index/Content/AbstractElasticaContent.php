@@ -81,11 +81,12 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
   protected function getActiveField($fieldname){
     $name = [
       'Actualité' => 'field_type_actualite',
-      'Application web' => $fieldname,
+      'Application web' => 'field_type_d_application',
       'Comité, commissions ou autre instance' => 'field_type_de_comite',
       'Ressource documentaire ou service de l\'Ordre' => 'field_type_de_ressource',
       'Référentiel normatif' => 'field_type_de_referentiel',
       'Article' => 'field_type_d_article',
+      'Video' => 'field_type_de_video',
     ];
     $contenu = $this->content->get($fieldname);
     return $name[$contenu->getString()];
