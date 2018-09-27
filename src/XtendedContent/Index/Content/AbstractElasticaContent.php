@@ -72,7 +72,6 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
       unset($esArray['object']['body']);
       $esArray['object']['body'][] = $tempBody;
     }
-    
     return $esArray;
   }
 

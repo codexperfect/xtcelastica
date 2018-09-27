@@ -109,6 +109,9 @@ class EntityField implements EntityFieldInterface {
     if(in_array($this->field->getName(), ['field_profils_autorises'])){
       return $this->getComplexFieldValues($value, $delta);
     }
+    if(in_array($this->field->getName(), ['field_formulaire_question'])){
+      return $this->field->view('full')[0]['#markup'];
+    }
 
     if(isset($value['value'])){
       return $value['value'];
