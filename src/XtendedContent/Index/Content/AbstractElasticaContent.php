@@ -41,7 +41,9 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
 
   protected function prepareField($fieldname){
     $field = $this->content->get($fieldname);
-    return (New EntityField($field))->getValues();
+    if(!empty($field->getValue())){
+      return (New EntityField($field))->getValues();
+    }
   }
 
   abstract public function load();
@@ -54,13 +56,23 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     $esArray = [];
     $esArray['params'] = $params;
     foreach($config as $esName => $d8Name){
-      if('body' == $esName && 'field_composants' != $d8Name){
-        $esArray['object'][$esName]['contenu']['text'] = $this->map($esName, $d8Name);
-      }
-      else{
-        $esArray['object'][$esName] = $this->map($esName, $d8Name);
+      if ($value = $this->map($esName, $d8Name)){
+        if('body' == $esName && 'field_composants' != $d8Name){
+//        $esArray['object'][$esName]['contenu']['text'] = $this->map($esName, $d8Name);
+          $esArray['object'][$esName]['contenu']['text'] = $value;
+        }
+        else{
+//        $esArray['object'][$esName] = $this->map($esName, $d8Name);
+          $esArray['object'][$esName] = $value;
+        }
       }
     }
+    if (!isset($esArray['object']['body'][0]) && $esArray['object']['body']) {
+      $tempBody = $esArray['object']['body'];
+      unset($esArray['object']['body']);
+      $esArray['object']['body'][] = $tempBody;
+    }
+    
     return $esArray;
   }
 
