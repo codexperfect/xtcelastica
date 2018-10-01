@@ -75,8 +75,10 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
    */
   public function init($method, $param = '') : ClientInterface {
     $this->method = $method;
-    parse_str($param, $this->param);
-    $this->setArgs();
+    if(! is_array($param)){
+      parse_str($param, $this->param);
+      $this->setArgs();
+    }
     return $this;
   }
 
