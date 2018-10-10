@@ -9,6 +9,7 @@
 namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 
+use Drupal\Core\Site\Settings;
 use Drupal\xtc\XtendedContent\API\Config;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClient;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClientInterface;
@@ -64,7 +65,14 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
   {
     $client = Config::getConfigs('serve', 'client');
     $index = Config::getConfigs('serve', 'index');
-    return array_merge_recursive($client, $index);
+    $params = array_merge_recursive($client, $index);
+
+    // Enable config override from settings.local.php
+    $settings = Settings::get('csoec.serve_client');
+    if(!empty($settings)){
+      return array_replace_recursive($params, $settings);
+    }
+    return $params;
   }
 
 }
