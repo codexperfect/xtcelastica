@@ -9,17 +9,62 @@
 namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 
+use Drupal\Core\Site\Settings;
 use Drupal\xtc\XtendedContent\Serve\XtcRequest\AbstractXtcRequest;
 
 abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
 {
 
-  private $request;
+  protected $request;
 
   /**
    * @var \Drupal\xtcelastica\XtendedContent\Serve\Client\AbstractElasticaClient
    */
   protected $client;
+
+
+  public function setConfigfromPlugins(array $config = [])
+  {
+    $name = 'article';
+    $profile = \Drupal::service('plugin.manager.xtc_profile')
+      ->getDefinition($name)
+    ;
+
+    $settings = Settings::get('csoec.serve_client')['xtc']['serve_client']['server'];
+
+    $server = \Drupal::service('plugin.manager.xtc_server')
+      ->getDefinition($profile['server'])
+    ;
+    $request = \Drupal::service('plugin.manager.xtc_request')
+      ->getDefinition($profile['request'])
+    ;
+    $this->setRequest($request);
+
+    if(!empty($settings[$profile['server']]['env'])){
+      $server['env'] = $settings[$profile['server']]['env'];
+    }
+
+    $this->webservice = [
+      'type' => $profile['type'],
+      'env' => $server['env'],
+      'connection' => $server['connection'],
+      'method' => $request['method'],
+      'args' => $request['args'],
+      'params' => $request['params'],
+    ];
+
+    $this->config['xtc']['serve_client'][$name] = [
+      'type' => $profile['type'],
+      'server' => $profile['server'],
+      'request' => $profile['request'],
+    ];
+    $this->config['xtc']['serve_client']['server'][$profile['server']] = $server;
+    $this->config['xtc']['serve_client']['request'][$profile['request']] = $request;
+
+    $this->buildClient();
+    return $this;
+  }
+
 
   protected function buildClient(){
     $this->client = $this->getElasticaClient();
