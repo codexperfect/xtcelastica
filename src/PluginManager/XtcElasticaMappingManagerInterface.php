@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\xtcelastica\Plugin;
+namespace Drupal\xtcelastica\PluginManager;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 
