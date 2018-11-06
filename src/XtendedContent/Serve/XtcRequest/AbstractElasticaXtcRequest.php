@@ -22,10 +22,9 @@ abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
    */
   protected $client;
 
-
   public function setConfigfromPlugins(array $config = [])
   {
-    $name = 'article';
+    $name = $this->profile;
     $profile = \Drupal::service('plugin.manager.xtc_profile')
       ->getDefinition($name)
     ;
@@ -53,18 +52,13 @@ abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
       'params' => $request['params'],
     ];
 
-    $this->config['xtc']['serve_client'][$name] = [
-      'type' => $profile['type'],
-      'server' => $profile['server'],
-      'request' => $profile['request'],
-    ];
+    $this->config['xtc']['serve_client'][$name] = $profile;
     $this->config['xtc']['serve_client']['server'][$profile['server']] = $server;
     $this->config['xtc']['serve_client']['request'][$profile['request']] = $request;
 
     $this->buildClient();
     return $this;
   }
-
 
   protected function buildClient(){
     $this->client = $this->getElasticaClient();
