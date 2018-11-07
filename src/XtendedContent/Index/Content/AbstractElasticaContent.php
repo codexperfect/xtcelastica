@@ -58,11 +58,9 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     foreach($config as $esName => $d8Name){
       if ($value = $this->map($esName, $d8Name)){
         if('body' == $esName && 'field_composants' != $d8Name){
-//        $esArray['object'][$esName]['contenu']['text'] = $this->map($esName, $d8Name);
           $esArray['object'][$esName]['contenu']['text'] = $value;
         }
         else{
-//        $esArray['object'][$esName] = $this->map($esName, $d8Name);
           $esArray['object'][$esName] = $value;
         }
       }

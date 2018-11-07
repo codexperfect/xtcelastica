@@ -30,7 +30,6 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
    * @var string
    */
   public $method;
-//  protected $method;
 
   /**
    * @var array
@@ -61,7 +60,6 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
    * @var array
    */
   public $request;
-//  protected $request;
 
   /**
    * @var array
