@@ -48,8 +48,8 @@ abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
       'env' => $server['env'],
       'connection' => $server['connection'],
       'method' => $request['method'],
-      'args' => $request['args'],
-      'params' => $request['params'],
+      'args' => $request['args'] ?? [],
+      'params' => $request['params'] ?? [],
     ];
 
     $this->config['xtc']['serve_client'][$name] = $profile;
