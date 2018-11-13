@@ -1,0 +1,13 @@
+search:
+  label: 'XTC Search'
+  description: 'XTC Search'
+  server: 'xtc_elastica'
+  index: 'drupal'
+  type: '_doc'
+  filters:
+    - published
+  pagination:
+    size: 5
+  sort:
+    field: 'dateParution'
+    dir: 'desc'

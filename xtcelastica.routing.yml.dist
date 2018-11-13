@@ -1,0 +1,8 @@
+xtcelastica.xtcsearch:
+  path: '/xtcsearch/{s}'
+  defaults:
+    _controller: '\Drupal\csoec_search\Controller\SearchController::search'
+    _title: 'Recherche XTC'
+    s: '*'
+  requirements:
+    _custom_access: 'Drupal\csoec_fields\Controller\AccessController::access'

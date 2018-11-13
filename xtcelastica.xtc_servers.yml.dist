@@ -1,0 +1,15 @@
+xtc_elastica:
+  label: 'XTC Elastica'
+  description: 'Elastica Server, for multiple environments.'
+  type: 'elastica'
+  env: 'prod'
+  connection:
+    dev:
+      host: '127.0.0.123'
+      port: 9200
+    rec:
+      host: '192.168.1.123'
+      port: 9200
+    prod:
+      host: '192.168.1.456'
+      port: 9200
