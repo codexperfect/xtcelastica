@@ -65,8 +65,9 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
         }
       }
     }
-    if (!isset($esArray['object']['body'][0]) && $esArray['object']['body']) {
-      $tempBody = $esArray['object']['body'];
+    // if (!isset($esArray['object']['body'][0]) && $esArray['object']['body']) {
+    if (empty($esArray['object']['body'][0]) && !empty($esArray['object']['body'])) {
+        $tempBody = $esArray['object']['body'];
       unset($esArray['object']['body']);
       $esArray['object']['body'][] = $tempBody;
     }
