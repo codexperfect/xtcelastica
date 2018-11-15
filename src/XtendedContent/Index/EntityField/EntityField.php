@@ -144,8 +144,9 @@ class EntityField implements EntityFieldInterface {
       $type = $ERType->getType();
       $fieldClass = $this->buildFieldClass($target, $type);
       $content = (New $fieldClass($this->field, $delta))->get();
-      if('field_composants' != $this->field->getName() ){
-        return $content;
+      // if('field_composants' != $this->field->getName() ){
+      if( !in_array($this->field->getName(), ['field_composants', 'field_composants_hp'])){
+          return $content;
       }
       else {
         return array_merge(['paragraphType' => $type], $content);
