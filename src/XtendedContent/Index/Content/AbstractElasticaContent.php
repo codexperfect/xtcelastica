@@ -25,6 +25,8 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
    */
   protected $content;
 
+  protected $_unsearchable = false;
+
   /**
    * @var array
    */
@@ -65,6 +67,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
         }
       }
     }
+    $esArray['object']['unsearchable'] = $this->_unsearchable;
     // if (!isset($esArray['object']['body'][0]) && $esArray['object']['body']) {
     if (empty($esArray['object']['body'][0]) && !empty($esArray['object']['body'])) {
         $tempBody = $esArray['object']['body'];
