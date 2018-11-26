@@ -95,7 +95,7 @@ abstract class AbstractElasticaContent implements ElasticaContentInterface
     $name = [
       'Actualité' => 'field_type_actualite',
       'Application web' => 'field_type_d_application',
-      'Comité, commissions ou autre instance' => 'field_type_de_comite',
+      'Instance de l\'Ordre' => 'field_type_de_comite',
       'Ressource documentaire ou service de l\'Ordre' => 'field_type_de_ressource',
       'Référentiel normatif' => 'field_type_de_referentiel',
       'Article' => 'field_type_d_article',
