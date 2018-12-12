@@ -13,7 +13,6 @@ use Drupal\Core\Site\Settings;
 use Drupal\xtc\XtendedContent\API\Config;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClient;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClientInterface;
-use GuzzleHttp\Exception\RequestException;
 
 class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
 {
@@ -39,7 +38,7 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
       $this->client->init($method, $param);
       $this->client->index($document);
       return $this;
-    } catch (RequestException $e) {
+    } catch (\Exception $e) {
       return ('Request error: ' . $e->getMessage());
     }
   }
@@ -56,7 +55,7 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
       $this->client->init($method, $param);
       $this->client->index($document);
       return $this;
-    } catch (RequestException $e) {
+    } catch (\Exception $e) {
       return ('Request error: ' . $e->getMessage());
     }
   }

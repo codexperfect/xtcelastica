@@ -1,0 +1,24 @@
+account-by-id:
+  label: 'Account by ID'
+  description: 'Account by ID.'
+  method: 'getElasticaDataByID'
+  params:
+    index: 'bank'
+    type: 'account'
+known-doc:
+  label: 'Known document'
+  description: 'Known document.'
+  method: 'getKnownDoc'
+  params: []
+index-doc:
+  label: 'Index document'
+  description: 'Index document.'
+  method: 'indexElasticaDoc'
+  params:
+    index: 'contenu'
+unindex-doc:
+  label: 'unIndex document'
+  description: 'Unindex document.'
+  method: 'unindexElasticaDoc'
+  params:
+    index: 'contenu'

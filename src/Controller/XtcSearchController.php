@@ -32,11 +32,11 @@ class XtcSearchController extends ControllerBase
   }
 
   public function getTitle() {
-    return 'Recherche';
+    return 'File';
   }
 
   protected function getType() {
-    return 'document';
+    return 'file';
   }
 
 }
