@@ -155,17 +155,17 @@ class EntityField implements EntityFieldInterface {
   }
 
   protected function buildTypeClass($target){
-    $config = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions()[$target];
+    $config = \Drupal::service('plugin.manager.xtcelastica_mapping')->getDefinitions()[$target];
     return '\Drupal\\'.$config['type']['module'].'\\'.$config['type']['path'].'\\'.$config['class'];
   }
 
   protected function buildFieldClass($target = '', $type = ''){
     if(empty($target)){
-      $config = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions()['complexfield'];
+      $config = \Drupal::service('plugin.manager.xtcelastica_mapping')->getDefinitions()['complexfield'];
       return '\Drupal\\' . $config['field']['module'] . '\\' . $config['field']['path'] . '\\' . $config['types'][$this->field->getName()];
     }
     else {
-      $config = \Drupal::service('plugin.manager.xtc_elastica_mapping')->getDefinitions()[$target];
+      $config = \Drupal::service('plugin.manager.xtcelastica_mapping')->getDefinitions()[$target];
       return '\Drupal\\' . $config['field']['module'] . '\\' . $config['field']['path'] . '\\' . $config['types'][$type];
     }
   }

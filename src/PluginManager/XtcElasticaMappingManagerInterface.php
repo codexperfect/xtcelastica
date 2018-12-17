@@ -5,10 +5,10 @@ namespace Drupal\xtcelastica\PluginManager;
 use Drupal\Component\Plugin\PluginManagerInterface;
 
 /**
- * Defines an interface for xtc_elastica_mapping managers.
+ * Defines an interface for xtcelastica_mapping managers.
  */
 interface XtcElasticaMappingManagerInterface extends PluginManagerInterface {
 
-    // Add getters and other public methods for xtc_elastica_mapping managers.
+    // Add getters and other public methods for xtcelastica_mapping managers.
 
 }

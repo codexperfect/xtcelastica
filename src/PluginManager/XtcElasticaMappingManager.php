@@ -10,12 +10,12 @@ use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
 /**
- * Provides the default xtc_elastica_mapping manager.
+ * Provides the default xtcelastica_mapping manager.
  */
 class XtcElasticaMappingManager extends DefaultPluginManager implements XtcElasticaMappingManagerInterface {
 
   /**
-   * Provides default values for all xtc_elastica_mapping plugins.
+   * Provides default values for all xtcelastica_mapping plugins.
    *
    * @var array
    */
@@ -36,7 +36,7 @@ class XtcElasticaMappingManager extends DefaultPluginManager implements XtcElast
   public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
     // Add more services as required.
     $this->moduleHandler = $module_handler;
-    $this->setCacheBackend($cache_backend, 'xtc_elastica_mapping', ['xtc_elastica_mapping']);
+    $this->setCacheBackend($cache_backend, 'xtcelastica_mapping', ['xtcelastica_mapping']);
   }
 
   /**
