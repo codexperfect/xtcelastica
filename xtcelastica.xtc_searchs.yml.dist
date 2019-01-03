@@ -1,4 +1,4 @@
-search:
+xtc_search:
   label: 'XTC Search'
   description: 'XTC Search'
   server: 'xtc_elastica'
