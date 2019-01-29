@@ -43,6 +43,9 @@ class SearchElasticaClient extends AbstractElasticaClient
     elseif(empty($this->param['q'])){
       $this->param['q'] = '';
     }
+    if(empty($this->clientParams['timeout']) ){
+      $this->clientParams['timeout'] = 5;
+    }
   }
 
   public function searchElasticaDocByQuery(){

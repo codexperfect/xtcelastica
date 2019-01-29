@@ -10,6 +10,7 @@ namespace Drupal\xtcelastica\XtendedContent\Index\EntityField;
 
 use Drupal\Core\Field\EntityReferenceFieldItemList;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\xtc\XtendedContent\API\Config;
 
 class EntityField implements EntityFieldInterface {
 
@@ -155,17 +156,17 @@ class EntityField implements EntityFieldInterface {
   }
 
   protected function buildTypeClass($target){
-    $config = \Drupal::service('plugin.manager.xtcelastica_mapping')->getDefinitions()[$target];
+    $config = Config::loadXtcMapping($target);
     return '\Drupal\\'.$config['type']['module'].'\\'.$config['type']['path'].'\\'.$config['class'];
   }
 
   protected function buildFieldClass($target = '', $type = ''){
     if(empty($target)){
-      $config = \Drupal::service('plugin.manager.xtcelastica_mapping')->getDefinitions()['complexfield'];
+      $config = Config::loadXtcMapping('complexfield');
       return '\Drupal\\' . $config['field']['module'] . '\\' . $config['field']['path'] . '\\' . $config['types'][$this->field->getName()];
     }
     else {
-      $config = \Drupal::service('plugin.manager.xtcelastica_mapping')->getDefinitions()[$target];
+      $config = Config::loadXtcMapping($target);
       return '\Drupal\\' . $config['field']['module'] . '\\' . $config['field']['path'] . '\\' . $config['types'][$type];
     }
   }

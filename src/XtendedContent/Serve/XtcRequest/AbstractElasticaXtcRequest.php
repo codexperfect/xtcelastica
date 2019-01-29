@@ -10,6 +10,7 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 
 use Drupal\Core\Site\Settings;
+use Drupal\xtc\XtendedContent\API\Config;
 use Drupal\xtc\XtendedContent\Serve\XtcRequest\AbstractXtcRequest;
 
 abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
@@ -25,18 +26,12 @@ abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
   public function setConfigfromPlugins(array $config = [])
   {
     $name = $this->profile;
-    $profile = \Drupal::service('plugin.manager.xtc_profile')
-      ->getDefinition($name)
-    ;
+    $profile = Config::loadXtcProfile($name);
 
     $settings = Settings::get('csoec.serve_client')['xtc']['serve_client']['server'];
 
-    $server = \Drupal::service('plugin.manager.xtc_server')
-      ->getDefinition($profile['server'])
-    ;
-    $request = \Drupal::service('plugin.manager.xtc_request')
-      ->getDefinition($profile['request'])
-    ;
+    $server = Config::loadXtcServer($profile['server']);
+    $request = Config::loadXtcRequest($profile['request']);
     $this->setRequest($request);
 
     if(!empty($settings[$profile['server']]['env'])){
