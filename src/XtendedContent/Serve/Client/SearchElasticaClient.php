@@ -26,6 +26,9 @@ class SearchElasticaClient extends AbstractElasticaClient
     if(!empty($this->param['count']) ){
       $this->clientParams['size'] = $this->param['count'];
     }
+    if(empty($this->params['timeout']) ){
+      $this->param['timeout'] = '5s';
+    }
     foreach (self::SEARCH_PARAMS as $param){
       if(!empty($this->param[$param]) ){
         $this->clientParams[$param] = $this->param[$param];
@@ -42,9 +45,6 @@ class SearchElasticaClient extends AbstractElasticaClient
     }
     elseif(empty($this->param['q'])){
       $this->param['q'] = '';
-    }
-    if(empty($this->clientParams['timeout']) ){
-      $this->clientParams['timeout'] = 5;
     }
   }
 

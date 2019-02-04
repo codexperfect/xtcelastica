@@ -67,7 +67,7 @@ class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
     $params = array_merge_recursive($client, $index);
 
     // Enable config override from settings.local.php
-    $settings = Settings::get('csoec.serve_client');
+    $settings = Settings::get('xtc.serve_client');
     if(!empty($settings)){
       return array_replace_recursive($params, $settings);
     }

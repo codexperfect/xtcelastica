@@ -17,7 +17,7 @@ use Drupal\xtc\XtendedContent\API\Config;
 function xtcelastica_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.xtcelastica':
-      return Config::getHelp('xtcelastica');
+      return Documentation::getHelp('xtcelastica');
   }
 }
 

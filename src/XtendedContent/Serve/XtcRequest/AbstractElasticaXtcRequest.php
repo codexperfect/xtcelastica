@@ -28,7 +28,7 @@ abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
     $name = $this->profile;
     $profile = Config::loadXtcProfile($name);
 
-    $settings = Settings::get('csoec.serve_client')['xtc']['serve_client']['server'];
+    $settings = Settings::get('xtc.serve_client')['xtc']['serve_client']['server'];
 
     $server = Config::loadXtcServer($profile['server']);
     $request = Config::loadXtcRequest($profile['request']);
