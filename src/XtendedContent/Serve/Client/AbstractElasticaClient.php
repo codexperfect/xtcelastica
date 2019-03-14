@@ -91,7 +91,7 @@ abstract class AbstractElasticaClient extends AbstractClient implements Elastica
       $getMethod = $this->method;
       $this->${"getMethod"}();
     }
-    return Json::encode($this->content);
+    return (!empty($this->content)) ? Json::encode($this->content) : '';
   }
 
   /**

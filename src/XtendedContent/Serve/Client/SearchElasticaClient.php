@@ -9,17 +9,72 @@
 namespace Drupal\xtcelastica\XtendedContent\Serve\Client;
 
 
+use Elastica\Query;
+use Elastica\Response;
+use Elastica\ResultSet;
+
 class SearchElasticaClient extends AbstractElasticaClient
 {
-  protected $response;
+  /**
+   * @var \Elastica\ResultSet
+   */
+  protected $resultSet;
 
+  /**
+   * @param        $callback
+   * @param string $value
+   * @param string $label
+   *
+   * @return $this
+   */
   protected function triggerSearch($callback, $value = '', $label = ''){
     $this->initClientParams();
-    $this->response = $this->client->search($this->clientParams);
-    if(!empty($this->response)){
+//    $this->resultSet = $this->client->search($this->clientParams);
+
+
+    try{
+      $this->resultSet = $this->client->search($this->clientParams);
+      $this->results = [];
+    }
+    catch(\Exception $exception){
+      $msg = $exception->getMessage();
+      \Drupal::logger('xtc.elastica')->critical(
+        'Message: @message',
+        [
+          '@message' => $exception->getMessage(),
+        ]
+      );
+      \Drupal::messenger()->addError($msg);
+    }
+    finally{
+      if(empty($this->resultSet)){
+        $response = New Response('');
+        $result = [];
+        $this->resultSet = New ResultSet($response, New Query(), $result);
+        $this->results = $this->getDocuments();
+      }
+      else{
+        $this->results = $this->getDocuments();
+      }
+      $this->searched = true;
+    }
+
+
+
+    if(!empty($this->resultSet)){
       $this->${"callback"}($value, $label);
     }
     return $this;
+  }
+
+  /**
+   * @return array Documents \Elastica\Document
+   */
+  public function getDocuments(){
+    if(!empty($this->resultSet->getResults())){
+      return $this->resultSet->getDocuments();
+    }
+    return [];
   }
 
   protected function initClientParams(){

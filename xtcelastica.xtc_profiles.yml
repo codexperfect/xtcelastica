@@ -1,0 +1,87 @@
+content-by-id:
+  label: 'Content by ID'
+  description: ''
+  type: 'elastica'
+  server: 'xtc_elastica'
+  index:
+    - 'contenu'
+  filters:
+    id: 'hidden'
+  pager:
+    size: 10
+
+base_elastica:
+  label: 'Content by ID and Thematic'
+  description: ''
+  type: 'elastica'
+  server: 'xtc_elastica'
+  index:
+    - 'contenu'
+  pager:
+    size: 10
+  sort:
+    field: 'dateParution'
+    order: 'desc'
+
+base_reference:
+  label: 'Reference'
+  description: ''
+  override: 'base_elastica'
+  index:
+    - 'elasticsearch_index_dila_contents_index'
+authors:
+  label: 'Authors'
+  description: ''
+  override: 'base_reference'
+  filters:
+    author: 'hidden'
+  pager:
+    size: 10
+  sort:
+    field: 'dateParution'
+    order: 'desc'
+
+thematic:
+  label: 'Content by ID and Thematic'
+  description: ''
+  override: 'base_elastica'
+  filters:
+    thematic: 'hidden'
+contenu-by-category:
+  label: 'Content by category'
+  description: ''
+  override: 'base_elastica'
+  filters:
+    category: 'hidden'
+contenu-by-category-and-thematic:
+  label: 'Content by ID and Thematic'
+  description: ''
+  override: 'base_elastica'
+  filters:
+    category: 'hidden'
+    thematic: 'hidden'
+contenu-by-category-and-learningresourcetype-and-thematic:
+  label: 'Content by ID, Learning Resource type and Thematic'
+  description: ''
+  override: 'contenu-by-category-and-thematic'
+  filters:
+    category: 'hidden'
+    thematic: 'hidden'
+    learningResourceByCategory: 'hidden'
+
+contenu-by-category-and-thematic-folder:
+  label: 'Content by ID and Thematic folder'
+  description: ''
+  override: 'base_elastica'
+  filters:
+    category: 'hidden'
+    thematicFolder: 'hidden'
+contenu-by-category-and-thematic-folder-and-thematic:
+  label: 'Content by ID, Learning Resource type  and Thematic folder'
+  description: ''
+  override: 'contenu-by-category-and-thematic-folder'
+  filters:
+    category: 'hidden'
+    thematicFolder: 'hidden'
+    learningResourceByCategory: 'hidden'
+
