@@ -77,9 +77,18 @@ contenu-by-category-and-thematic-folder:
     category: 'hidden'
     thematicFolder: 'hidden'
 contenu-by-category-and-thematic-folder-and-thematic:
-  label: 'Content by ID, Learning Resource type  and Thematic folder'
+  label: 'Content by ID, Thematic folder type  and Thematic'
   description: ''
   override: 'contenu-by-category-and-thematic-folder'
+  filters:
+    category: 'hidden'
+    thematic: 'hidden'
+    thematicFolder: 'hidden'
+
+contenu-by-category-and-learningresourcetype-and-thematic-folder:
+  label: 'Content by ID, Learning Resource type  and Thematic folder'
+  description: ''
+  override: 'contenu-by-category-and-learningresourcetype-and-thematic'
   filters:
     category: 'hidden'
     thematicFolder: 'hidden'

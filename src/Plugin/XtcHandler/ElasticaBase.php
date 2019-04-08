@@ -51,38 +51,20 @@ abstract class ElasticaBase extends XtcHandlerPluginBase
     $this->getResultSet();
     $docs = $this->getDocuments();
     if(!empty($docs[0]) && $docs[0] instanceof Document){
-      if(1 == count($docs)){
-        $this->content = $docs[0]->getData();
-      }
-      else{
-        foreach($this->getDocuments() as $item){
-          $this->content[] = $item->getData();
-        }
+      $this->content['totalHits'] = $this->resultSet->getTotalHits();
+      foreach($this->getDocuments() as $item){
+        $this->content['values'][] = $item->getData();
       }
     }
-    return $this->content;
+    return $this;
   }
 
   public function getFilters() {
-    $this->definition = $this->profile;
-    $this->initFilters();
-    $this->initElastica();
-    $this->initPagination();
-    $this->initQuery();
+    return $this->get()
+                ->filters();
+  }
 
-    $this->setCriteria();
-    $this->getResultSet();
-    $docs = $this->getDocuments();
-    if(!empty($docs[0]) && $docs[0] instanceof Document){
-      if(1 == count($docs)){
-        $this->content = $docs[0]->getData();
-      }
-      else{
-        foreach($this->getDocuments() as $item){
-          $this->content[] = $item->getData();
-        }
-      }
-    }
+  protected function filters(){
     foreach($this->filters as $name => $container) {
       $filter = $this->loadFilter($name);
       if(!empty($this->resultSet)){
