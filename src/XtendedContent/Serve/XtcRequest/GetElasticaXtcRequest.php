@@ -11,7 +11,7 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 use Drupal\xtcelastica\XtendedContent\Serve\Client\GetElasticaClient;
 
-class GetElasticaXtcRequest extends AbstractElasticaXtcRequest
+class GetElasticaXtcRequest extends AbstractElasticaXtcRequestOFF
 {
   /**
    * @return \Drupal\xtcelastica\XtendedContent\Serve\Client\AbstractElasticaClient

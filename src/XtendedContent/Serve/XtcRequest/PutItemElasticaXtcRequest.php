@@ -11,7 +11,7 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 use Drupal\xtcelastica\XtendedContent\Serve\Client\PutItemElasticaClient;
 
-class PutItemElasticaXtcRequest extends AbstractElasticaXtcRequest
+class PutItemElasticaXtcRequest extends AbstractElasticaXtcRequestOFF
 {
   protected function getElasticaClient(){
     return New PutItemElasticaClient($this->profile);

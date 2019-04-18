@@ -1,9 +1,4 @@
 services:
-  xtc.elastica:
-    class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest
-  xtcelastica.local_test:
-    class: Drupal\xtcelastica\XtendedContent\Serve\XtcRequest\ElasticaXtcRequest
-    arguments: ['test_local']
   plugin.manager.xtcelastica_mapping:
     class: Drupal\xtcelastica\PluginManager\XtcElasticaMappingManager
     arguments: ['@module_handler', '@cache.discovery']

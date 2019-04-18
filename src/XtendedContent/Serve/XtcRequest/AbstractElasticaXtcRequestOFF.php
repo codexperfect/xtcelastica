@@ -11,9 +11,9 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 use Drupal\Core\Site\Settings;
 use Drupal\xtc\XtendedContent\API\Config;
-use Drupal\xtc\XtendedContent\Serve\XtcRequest\AbstractXtcRequest;
+use Drupal\xtc\XtendedContent\Serve\XtcRequest\AbstractXtcRequestOFF;
 
-abstract class AbstractElasticaXtcRequest extends AbstractXtcRequest
+abstract class AbstractElasticaXtcRequestOFF extends AbstractXtcRequestOFF
 {
 
   protected $request;

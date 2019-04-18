@@ -2,6 +2,7 @@ content-by-id:
   label: 'Content by ID'
   description: ''
   type: 'elastica'
+  verb: 'get'
   server: 'xtc_elastica'
   index:
     - 'contenu'
@@ -14,6 +15,7 @@ base_elastica:
   label: 'Content by ID and Thematic'
   description: ''
   type: 'elastica'
+  verb: 'search'
   server: 'xtc_elastica'
   index:
     - 'contenu'
@@ -40,6 +42,24 @@ authors:
   sort:
     field: 'dateParution'
     order: 'desc'
+
+index_node:
+  label: 'Index node'
+  description: ''
+  type: 'elastica'
+  verb: 'update'
+  server: 'xtc_elastica'
+  request: 'index-node'
+  service: 'Drupal\csoec_ws\XtendedContent\Serve\XtcRequest\CsoecIndexElasticaXtcRequest'
+unindex_node:
+  label: 'Unindex node'
+  description: ''
+  type: 'elastica'
+  verb: 'delete'
+  server: 'xtc_elastica'
+  request: 'unindex-node'
+  service: 'Drupal\csoec_ws\XtendedContent\Serve\XtcRequest\CsoecIndexElasticaXtcRequest'
+
 
 thematic:
   label: 'Content by ID and Thematic'

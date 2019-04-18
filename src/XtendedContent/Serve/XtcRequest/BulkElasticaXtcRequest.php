@@ -11,7 +11,7 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 use Drupal\xtcelastica\XtendedContent\Serve\Client\BulkElasticaClient;
 
-class BulkElasticaXtcRequest extends AbstractElasticaXtcRequest
+class BulkElasticaXtcRequest extends AbstractElasticaXtcRequestOFF
 {
   protected function getElasticaClient(){
     return New BulkElasticaClient($this->profile);

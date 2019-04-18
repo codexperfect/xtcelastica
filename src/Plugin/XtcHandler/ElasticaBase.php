@@ -4,11 +4,9 @@ namespace Drupal\xtcelastica\Plugin\XtcHandler;
 
 
 use Drupal\xtc\PluginManager\XtcHandler\XtcHandlerPluginBase;
-use Drupal\xtc\XtendedContent\API\XtcProfile;
 use Drupal\xtcsearch\Form\Traits\FilterSearchTrait;
 use Drupal\xtcsearch\Form\Traits\PaginationTrait;
 use Drupal\xtcsearch\Form\Traits\QueryTrait;
-use Elastica\Document;
 use Elastica\Exception\InvalidException;
 
 /**
@@ -39,28 +37,8 @@ abstract class ElasticaBase extends XtcHandlerPluginBase
    */
   protected $request = [];
 
-
-  public function get() {
-    $this->definition = $this->profile;
-    $this->initFilters();
-    $this->initElastica();
-    $this->initPagination();
-    $this->initQuery();
-
-    $this->setCriteria();
-    $this->getResultSet();
-    $docs = $this->getDocuments();
-    if(!empty($docs[0]) && $docs[0] instanceof Document){
-      $this->content['totalHits'] = $this->resultSet->getTotalHits();
-      foreach($this->getDocuments() as $item){
-        $this->content['values'][] = $item->getData();
-      }
-    }
-    return $this;
-  }
-
-  public function getFilters() {
-    return $this->get()
+  public function searchFilters() {
+    return $this->search()
                 ->filters();
   }
 

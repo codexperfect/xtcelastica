@@ -11,7 +11,7 @@ namespace Drupal\xtcelastica\XtendedContent\Serve\XtcRequest;
 
 use Drupal\xtcelastica\XtendedContent\Serve\Client\SearchElasticaClient;
 
-class SearchElasticaXtcRequest extends AbstractElasticaXtcRequest
+class SearchElasticaXtcRequest extends AbstractElasticaXtcRequestOFF
 {
   protected function getElasticaClient(){
     return New SearchElasticaClient($this->profile);

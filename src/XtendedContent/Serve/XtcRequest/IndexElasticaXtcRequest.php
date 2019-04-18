@@ -14,7 +14,7 @@ use Drupal\xtc\XtendedContent\API\Config;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClient;
 use Drupal\xtcelastica\XtendedContent\Serve\Client\IndexElasticaClientInterface;
 
-class IndexElasticaXtcRequest extends AbstractElasticaXtcRequest
+class IndexElasticaXtcRequest extends AbstractElasticaXtcRequestOFF
 {
 
   /**
