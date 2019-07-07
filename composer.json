@@ -15,5 +15,6 @@
         "source": "http://cgit.drupalcode.org/xtcelastica"
     },
     "require": {
+        "friendsofsymfony/elastica-bundle": "5.*"
     }
 }
